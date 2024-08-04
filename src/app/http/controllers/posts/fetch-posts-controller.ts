@@ -1,5 +1,5 @@
-import { makeCreatePostUseCase } from "@/app/ factories/make-create-post-use-case";
-import { makeFetchPostsUseCase } from "@/app/ factories/make-fetch-posts-use-case";
+import { makeCreatePostUseCase } from "@/app/factories/make-create-post-use-case";
+import { makeFetchPostsUseCase } from "@/app/factories/make-fetch-posts-use-case";
 import { PostAlreadyExistsError } from "@/app/exceptions/post-already-exist-error";
 import { RequestHandler } from "express";
 import { z } from "zod";

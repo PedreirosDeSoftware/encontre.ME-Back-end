@@ -1,4 +1,4 @@
-import { makeCreateWeatherEventUseCase } from "@/app/ factories/make-create-weather-event-use-case";
+import { makeCreateWeatherEventUseCase } from "@/app/factories/make-create-weather-event-use-case";
 import { RequestHandler } from "express";
 import { z } from "zod";
 

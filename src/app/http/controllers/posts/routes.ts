@@ -4,11 +4,10 @@ import { authorizationMiddleware } from "../../middlewares/authorization";
 import { fetchPostsController } from "./fetch-posts-controller";
 import { getSpecificPostPostController } from "./get-specific-controller";
 
-export function postsRoutes(route: Router) {
-    route.post("user/:userId/posts",  authorizationMiddleware, createPostController);
-    route.post("weather-event/:weatherId/posts", createPostController);
+export function postsRoutes(router: Router) {
+    router.post("/user/:userId/posts", authorizationMiddleware, createPostController);
+    router.post("/weather-event/:weatherId/posts", createPostController);
 
-
-    route.get("/posts", fetchPostsController);
-    route.get("/posts/specific", getSpecificPostPostController);
+    router.get("/posts", fetchPostsController);
+    router.get("/posts/specific", getSpecificPostPostController);
 }

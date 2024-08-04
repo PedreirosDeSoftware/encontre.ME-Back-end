@@ -1,4 +1,4 @@
-import { makeAuthenticateUseCase } from "@/app/ factories/make-authenticate-use-case";
+import { makeAuthenticateUseCase } from "@/app/factories/make-authenticate-use-case";
 import { InvalidCredentialsError } from "@/app/exceptions/invalid-credentials-error";
 import { RequestHandler } from "express";
 import { z } from "zod";

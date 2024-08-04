@@ -1,4 +1,4 @@
-import { makeRegisterUseCase } from "@/app/ factories/make-register-use-case";
+import { makeRegisterUseCase } from "@/app/factories/make-register-use-case";
 import { EmailAlreadyExistsError } from "@/app/exceptions/email-already-exists-error";
 import { RequestHandler } from "express";
 import { z }from "zod";
@@ -6,7 +6,7 @@ import { z }from "zod";
 export const registerController: RequestHandler = async (req, res) => {
     const registerBodySchema = z.object({
         name: z.string(),
-        authorName: z.string().nullable(),
+        authorName: z.string().nullable(), 
         email: z.string().email(),
         password: z.string().min(8),
         cnpj_cpf: z.string(),
@@ -14,9 +14,10 @@ export const registerController: RequestHandler = async (req, res) => {
         city: z.string(),
         cep: z.string().max(8),
         address: z.string(),
-    })
+    });
+    
 
-    const { name, authorName, email, password,cnpj_cpf, state, city, cep, address } = registerBodySchema.parse(req.body);
+    const { name, authorName = null, email, password, cnpj_cpf, state, city, cep, address } = registerBodySchema.parse(req.body);
 
     try {
         const registerUseCase = makeRegisterUseCase()

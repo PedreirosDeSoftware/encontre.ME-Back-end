@@ -1,4 +1,4 @@
-import { makeGetSpecificUseCase } from "@/app/ factories/make-get-specific-post-use-case";
+import { makeGetSpecificUseCase } from "@/app/factories/make-get-specific-post-use-case";
 import { ResourceNotFound } from "@/app/exceptions/resource-not-found";
 import { RequestHandler } from "express";
 import { z } from "zod";

@@ -1,4 +1,4 @@
-import { PostRepository } from "@/app/interfaces/post-interface";
+import { PostRepository } from "@/app/interfaces/post-interfaces";
 import { Post, Prisma } from "@prisma/client";
 import { randomUUID } from "node:crypto";
 import { InMemoryWeatherEventRepository } from "./in-memory-weather-event-repository";
