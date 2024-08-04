@@ -1,0 +1,58 @@
+// This is your Prisma schema file,
+// learn more about it in the docs: https://pris.ly/d/prisma-schema
+
+// Looking for ways to speed up your queries, or scale easily with your serverless or edge functions?
+// Try Prisma Accelerate: https://pris.ly/cli/accelerate-init
+
+generator client {
+    provider = "prisma-client-js"
+}
+
+datasource db {
+    provider = "postgresql"
+    url      = env("DATABASE_URL")
+}
+
+model User {
+    id           String   @id @default(uuid())
+    name         String
+    authorName   String?  @map("author_name")
+    email        String   @unique
+    passwordHash String   @map("password_hash")
+    cnpj_cpf     String   @unique
+    state        String
+    city         String
+    cep          String   @db.Char(8)
+    address      String
+    createdAt    DateTime @default(now()) @map("created_at")
+    posts        Post[]
+
+    @@map("users")
+}
+
+model Post {
+    id          String   @id @default(uuid())
+    fullName    String   @unique @map("full_name")
+    description String
+    contact     String
+    imagesUrl   String   @map("images_url")
+    createdAt   DateTime @default(now()) @map("created_at")
+
+    user_id          String
+    weather_event_id String
+    user             User         @relation(fields: [user_id], references: [id])
+    weather          WeatherEvent @relation(fields: [weather_event_id], references: [id])
+
+    @@map("posts")
+}
+
+model WeatherEvent {
+    id     String  @id @default(uuid())
+    name   String
+    state  String
+    city   String
+    status Boolean @default(true)
+    posts  Post[]
+
+    @@map("weather_events")
+}

@@ -1,26 +1,17 @@
-# Aplicativo de Pessoas Desaparecidas - Back-end
+# API
+ - O app será uma plataforma que centralize informações sobre pessoas desaparecidas, permitindo que familiares, amigos e instituições possam divulgar casos e auxiliar na busca.
 
-## Descrição
+## RF (Requisitos Funcionais)
 
-Este repositório contém o código do back-end para o Aplicativo de Pessoas Desaparecidas. O back-end fornece uma API RESTful que permite o gerenciamento de usuários e posts sobre pessoas desaparecidas, incluindo autenticação, registro de dados e funcionalidades de busca.
+- [x] Deve ser possível registrar uma organização ou usuário;
+- [x] Deve ser possível realizar o login da organização ou usuário cadastrado;
+- [x] Deve ser possível realizar o cadastro de uma pessoa desaparecida;
+- [x] Deve ser possível listar os posts das pessoas desaparecidas;
+- [x] Deve ser possível filtrar por um post específico;
 
-## Funcionalidades
+## RNF (Requisitos Não Funcionais)
 
-- **Autenticação de Usuários:** Registro e login de usuários com segurança.
-- **Cadastro de Posts:** Permite que os usuários registrem informações sobre pessoas desaparecidas.
-- **Gerenciamento de Dados:** Manipulação de dados de usuários e posts, incluindo criação, leitura, atualização e exclusão.
-- **Busca e Filtragem:** Ferramentas para buscar e filtrar posts de pessoas desaparecidas.
+- [x] A senha da organização ou usuário deve estar criptografada;
+- [x] Os dados da aplicação devem estar persistidos em um banco PostgreSQL;
+- [x] A organização ou usuário devem estar autenticados por um JWT (Json Web Token);
 
-## Tecnologias Utilizadas
-
-- **Node.js:** Plataforma de execução JavaScript no servidor.
-- **Express:** Framework para construir aplicações web e APIs.
-- **MongoDB:** Banco de dados NoSQL para armazenamento de dados.
-- **Mongoose:** ODM (Object Data Modeling) para MongoDB e Node.js.
-- **JWT (JSON Web Tokens):** Para autenticação segura.
-
-## Instalação
-
-1. **Clone o repositório:**
-   ```bash
-   git clone https://github.com/usuario/aplicativo-pessoas-desaparecidas-back.git
