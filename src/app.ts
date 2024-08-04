@@ -3,7 +3,6 @@ import express from "express";
 import cors from "cors";
 import { usersRoutes } from "./app/http/controllers/users/routes";
 import { postsRoutes } from "./app/http/controllers/posts/routes";
-import { weatherEventsRoutes } from "./app/http/controllers/weather-events/routes";
 
 export const app: Express = express();
 
@@ -17,4 +16,4 @@ app.use('/api', router);
 
 postsRoutes(router);
 usersRoutes(router);
-weatherEventsRoutes(router);
+

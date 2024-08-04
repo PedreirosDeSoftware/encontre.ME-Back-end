@@ -3,12 +3,14 @@ import { Prisma, User  } from "@prisma/client";
 export interface UserRepository {
     create(data: Prisma.UserCreateInput): Promise<User>;
     findByEmail(email: string): Promise<User | null>;
+    findById(id: string): Promise<User | null>;
 }
 
 export interface RegisterUseCaseRequest {
     name: string,
     authorName: string | null,
     email: string,
+    phone: string,
     password: string,
     cnpj_cpf: string,
     state: string,
@@ -28,4 +30,12 @@ export interface AuthenticateUseCaseRequest {
 
 export interface AuthenticateUseCaseResponse {
     user: User;
+}
+
+export interface GetUserUseCaseRequest {
+    id: string,
+}
+
+export interface GetUserUseCaseResponse {
+    user: User
 }

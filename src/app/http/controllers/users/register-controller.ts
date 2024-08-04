@@ -6,10 +6,11 @@ import { z }from "zod";
 export const registerController: RequestHandler = async (req, res) => {
     const registerBodySchema = z.object({
         name: z.string(),
-        authorName: z.string().nullable(), 
+        authorName: z.string().nullish(), 
         email: z.string().email(),
         password: z.string().min(8),
         cnpj_cpf: z.string(),
+        phone: z.string(),
         state: z.string(),
         city: z.string(),
         cep: z.string().max(8),
@@ -17,12 +18,12 @@ export const registerController: RequestHandler = async (req, res) => {
     });
     
 
-    const { name, authorName = null, email, password, cnpj_cpf, state, city, cep, address } = registerBodySchema.parse(req.body);
+    const { name, authorName = null , email, password, cnpj_cpf, phone, state, city, cep, address } = registerBodySchema.parse(req.body);
 
     try {
         const registerUseCase = makeRegisterUseCase()
         await registerUseCase.execute({
-            name, email, password, cnpj_cpf, state, city, cep, address, authorName
+            name, email, password, cnpj_cpf, phone, state, city, cep, address, authorName
         });
 
         return res.status(201).json();

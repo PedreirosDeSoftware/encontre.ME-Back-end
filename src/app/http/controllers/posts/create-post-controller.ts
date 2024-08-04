@@ -16,7 +16,7 @@ export const createPostController: RequestHandler = async (req, res) => {
         imagesUrl: z.string(),
     })
 
-    const { userId, weatherId } = createPostParamsSchema.parse(req.params);
+    const { userId, weatherId = null } = createPostParamsSchema.parse(req.params);
     const { fullName, description, contact, imagesUrl } = createPostBodySchema.parse(req.body);
 
     try {

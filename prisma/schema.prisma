@@ -20,6 +20,7 @@ model User {
     email        String   @unique
     passwordHash String   @map("password_hash")
     cnpj_cpf     String   @unique
+    phone        String
     state        String
     city         String
     cep          String   @db.Char(8)

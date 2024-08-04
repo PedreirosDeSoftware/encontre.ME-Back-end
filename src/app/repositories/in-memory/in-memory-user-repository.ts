@@ -13,6 +13,7 @@ export class InMemoryUserRepository implements UserRepository {
             email: data.email,
             passwordHash: data.passwordHash,
             cnpj_cpf: data.cnpj_cpf,
+            phone: data.phone,
             state: data.state,
             city: data.city,
             cep: data.cep,
@@ -26,6 +27,13 @@ export class InMemoryUserRepository implements UserRepository {
 
     async findByEmail(email: string){
         const user = this.users.find(item => item.email === email);
+        if (!user) return null;
+
+        return user;
+    }
+
+    async findById(id: string) {
+        const user = this.users.find(item => item.id === id);     
         if (!user) return null;
 
         return user;
