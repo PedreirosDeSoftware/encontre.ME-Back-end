@@ -16,7 +16,6 @@ export class InMemoryPostRepository implements PostRepository {
             contact: data.contact,
             imagesUrl: data.imagesUrl,
             user_id: data.user_id,
-            weather_event_id: data.weather_event_id ?? null,
             createdAt: new Date()
         }
 
@@ -25,7 +24,7 @@ export class InMemoryPostRepository implements PostRepository {
     }
 
     async findByName(name: string) {
-        const post = this.posts.find(item => item.fullName === name);
+        const post = this.posts.find(item => item.fullName.toLowerCase() === name.toLowerCase());
         if (!post) return null;
 
         return post;
@@ -43,5 +42,17 @@ export class InMemoryPostRepository implements PostRepository {
         const posts = this.posts
             .filter((item) => weatherEvent.some((event) => event.id === item.weather_event_id));
         return posts;
+    }
+
+    async findById(id: string) {
+        const post = this.posts.find(item => item.id === id);
+        if (!post) return null;
+
+        return post;
+    }
+
+    async searchPosts(query: string) {
+        const posts = this.posts.filter(item => item.fullName.toLowerCase() === query.toLowerCase())
+        return posts
     }
 }

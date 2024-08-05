@@ -24,7 +24,6 @@ describe('Create Post Use Case', () => {
             contact: '55 61 9999-9999',
             imagesUrl: '/local/images/upload',
             user_id: 'user-1',
-            weather_id: 'no-existing'
         });
         
         expect(post.id).toEqual(expect.any(String));
@@ -37,7 +36,6 @@ describe('Create Post Use Case', () => {
             contact: '55 61 9999-9999',
             imagesUrl: '/local/images/upload',
             user_id: 'user-1',
-            weather_id: 'no-existing'
         });
         
         await expect(() => 
@@ -47,7 +45,6 @@ describe('Create Post Use Case', () => {
                 contact: '55 61 9999-9999',
                 imagesUrl: '/local/images/upload',
                 user_id: 'user-1',
-                weather_id: 'no-existing'
             })
         ).rejects.toBeInstanceOf(PostAlreadyExistsError);
     });

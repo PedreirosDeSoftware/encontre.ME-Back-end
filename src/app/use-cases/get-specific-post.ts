@@ -4,8 +4,8 @@ import { GetSpecificPostUseCaseRequest, GetSpecificPostUseCaseResponse, PostRepo
 export class GetSpecificPostUseCase {
     constructor(private postRepository: PostRepository) {}
 
-    async execute({ name }: GetSpecificPostUseCaseRequest): Promise<GetSpecificPostUseCaseResponse> {
-        const post = await this.postRepository.findByName(name);
+    async execute({ id }: GetSpecificPostUseCaseRequest): Promise<GetSpecificPostUseCaseResponse> {
+        const post = await this.postRepository.findById(id);
         if (!post) throw new ResourceNotFound()
 
         return { post }

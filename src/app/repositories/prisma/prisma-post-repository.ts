@@ -1,9 +1,9 @@
 import { PostRepository } from "@/app/interfaces/post-interfaces";
-import { Prisma } from "@prisma/client";
+import { Post, Prisma } from "@prisma/client";
 import { prisma } from "@/app/lib/prisma";
 
 export class PrismaPostRepository implements PostRepository {
-
+   
     async create(data: Prisma.PostUncheckedCreateInput) {
         const post = await prisma.post.create({
             data
@@ -34,5 +34,18 @@ export class PrismaPostRepository implements PostRepository {
     //    })
 
         return posts;
+    }
+
+    async findById(id: string) {
+        const post = await prisma.post.findUnique({
+            where: { id }
+        });
+        if (!post) return null;
+
+        return post;
+    }
+
+    searchPosts(query: string): Promise<Post[]> {
+        throw new Error("Method not implemented.");
     }
 }

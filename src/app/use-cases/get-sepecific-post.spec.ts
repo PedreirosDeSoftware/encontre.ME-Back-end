@@ -18,22 +18,19 @@ describe('Get Specific Post Use Case', () => {
     });
 
     it('should be able to get specific post', async () => { 
-        for(let i = 1; i <= 20; i++) {
-            await postRepository.create({
-                fullName: `desaparecido ${i}`,
+         const postId = await postRepository.create({
+                fullName: `desaparecido 1`,
                 description: 'é uma pessoa desaparecida',
                 contact: '55 61 9999-9999',
                 imagesUrl: '/local/images/upload',
                 user_id: 'user-1',
-                weather_event_id: 'no-existing',
             });
-        }
-        
+            
         const { post } = await sut.execute({
-            name: 'desaparecido 2'
+            id: postId.id
         });
         
-        expect(post).toEqual(expect.objectContaining({ fullName: 'desaparecido 2' }));
+        expect(post).toEqual(expect.objectContaining({ fullName: 'desaparecido 1' }));
     });
 
     it('should not be able to get specific post', async () => { 
@@ -44,13 +41,12 @@ describe('Get Specific Post Use Case', () => {
                 contact: '55 61 9999-9999',
                 imagesUrl: '/local/images/upload',
                 user_id: 'user-1',
-                weather_event_id: 'no-existing'
             });
         }
                 
       await expect(() =>
         sut.execute({
-            name: 'desaparecido 22'
+            id: 'no-existing'
             })
         ).rejects.toBeInstanceOf(ResourceNotFound);
     });

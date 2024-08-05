@@ -3,16 +3,16 @@ import { ResourceNotFound } from "@/app/exceptions/resource-not-found";
 import { RequestHandler } from "express";
 import { z } from "zod";
 
-export const getSpecificPostPostController: RequestHandler = async (req, res) => {
+export const getSpecificPostController: RequestHandler = async (req, res) => {
     const getSpecificParamsSchema = z.object({
-        name: z.string()
+        id: z.string().uuid()
     });  
  
-    const { name } = getSpecificParamsSchema.parse(req.query)
+    const { id } = getSpecificParamsSchema.parse(req.params)
 
     try {
         const getSpecificPostUseCase = makeGetSpecificUseCase()
-        const post = await getSpecificPostUseCase.execute({ name });
+        const post = await getSpecificPostUseCase.execute({ id });
 
         return res.status(200).json(post);
 

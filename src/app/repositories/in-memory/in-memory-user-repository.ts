@@ -18,6 +18,7 @@ export class InMemoryUserRepository implements UserRepository {
             city: data.city,
             cep: data.cep,
             address: data.address,
+            imagesUrl: data.imagesUrl ?? null,
             createdAt: new Date()
         }
 

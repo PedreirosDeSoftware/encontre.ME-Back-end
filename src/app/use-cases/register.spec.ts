@@ -20,10 +20,13 @@ describe('Register Use Case', () => {
             email: 'johndoe@example.com',
             password: '12345678',
             cnpj_cpf: "12345678978",
+            phone: "55 61 9999-9999",
             state: "Brazil",
             city: "São Paulo",
             cep: "12345678",
             address: "rua nada",
+            imagesUrl: null,
+            authorName: null
         });
         
         expect(user.id).toEqual(expect.any(String));
@@ -39,10 +42,13 @@ describe('Register Use Case', () => {
             email,
             password: '12345678',
             cnpj_cpf: "12345678978",
+            phone: "55 61 9999-9999",
             state: "Brazil",
             city: "São Paulo",
             cep: "12345678",
             address: "rua nada",
+            imagesUrl: null,
+            authorName: null
         });
 
         await expect(() =>
@@ -51,10 +57,13 @@ describe('Register Use Case', () => {
                 email,
                 password: '12345678',
                 cnpj_cpf: "12345678978",
+                phone: "55 61 9999-9999",
                 state: "Brazil",
                 city: "São Paulo",
                 cep: "12345678",
                 address: "rua nada",
+                imagesUrl: null,
+                authorName: null
             })
         ).rejects.toBeInstanceOf(EmailAlreadyExistsError);
     
@@ -69,8 +78,11 @@ describe('Register Use Case', () => {
             cnpj_cpf: "12345678978",
             state: "Brazil",
             city: "São Paulo",
+            phone: "55 61 9999-9999",
             cep: "12345678",
             address: "rua nada",
+            imagesUrl: null,
+            authorName: null
         });
         const isPasswordCorrectlyHashed = await compare('12345678', user.passwordHash);
         expect(isPasswordCorrectlyHashed).toBe(true);
