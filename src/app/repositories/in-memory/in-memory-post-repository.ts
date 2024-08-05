@@ -16,7 +16,7 @@ export class InMemoryPostRepository implements PostRepository {
             contact: data.contact,
             imagesUrl: data.imagesUrl,
             user_id: data.user_id,
-            weather_event_id: data.weather_event_id,
+            weather_event_id: data.weather_event_id ?? null,
             createdAt: new Date()
         }
 

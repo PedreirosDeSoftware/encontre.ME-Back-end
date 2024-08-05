@@ -7,7 +7,7 @@ import { hash } from "bcryptjs";
 export class RegisterUseCase {
     constructor(private userRepository: UserRepository) {}
 
-    async execute({ name, authorName, email, password, cnpj_cpf, phone, state, city, cep, address }: RegisterUseCaseRequest): Promise<RegisterUseCaseResponse> {
+    async execute({ name, authorName, email, password, cnpj_cpf, phone, imagesUrl, state, city, cep, address }: RegisterUseCaseRequest): Promise<RegisterUseCaseResponse> {
         
         const passwordHash = await hash(password, 6);
 
@@ -15,7 +15,7 @@ export class RegisterUseCase {
         if (userWithSameEmail) throw new EmailAlreadyExistsError();
         
         const user = await this.userRepository.create({ 
-            name, authorName, email, passwordHash, cnpj_cpf, phone, state, city, cep, address 
+            name, authorName, email, passwordHash, cnpj_cpf, phone, state, imagesUrl, city, cep, address 
          });
 
          return { user }

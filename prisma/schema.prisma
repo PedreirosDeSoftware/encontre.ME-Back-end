@@ -25,6 +25,7 @@ model User {
     city         String
     cep          String   @db.Char(10)
     address      String
+    imagesUrl    String?
     createdAt    DateTime @default(now()) @map("created_at")
     posts        Post[]
 
@@ -39,21 +40,21 @@ model Post {
     imagesUrl   String   @map("images_url")
     createdAt   DateTime @default(now()) @map("created_at")
 
-    user_id          String
-    weather_event_id String
-    user             User         @relation(fields: [user_id], references: [id])
-    weather          WeatherEvent @relation(fields: [weather_event_id], references: [id])
+    user_id String
+    user    User   @relation(fields: [user_id], references: [id])
+    //weather_event_id String
+    // weather          WeatherEvent @relation(fields: [weather_event_id], references: [id])
 
     @@map("posts")
 }
 
-model WeatherEvent {
-    id     String  @id @default(uuid())
-    name   String
-    state  String
-    city   String
-    status Boolean @default(true)
-    posts  Post[]
+// model WeatherEvent {
+//     id     String  @id @default(uuid())
+//     name   String
+//     state  String
+//     city   String
+//     status Boolean @default(true)
+//     posts  Post[]
 
-    @@map("weather_events")
-}
+//     @@map("weather_events")
+// }

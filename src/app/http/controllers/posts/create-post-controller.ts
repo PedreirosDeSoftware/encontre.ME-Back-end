@@ -5,8 +5,7 @@ import { z } from "zod";
 
 export const createPostController: RequestHandler = async (req, res) => {
     const createPostParamsSchema = z.object({
-        userId: z.string(),
-        weatherId: z.string()
+        user_id: z.string().uuid(),
     });
 
     const createPostBodySchema = z.object({
@@ -16,13 +15,15 @@ export const createPostController: RequestHandler = async (req, res) => {
         imagesUrl: z.string(),
     })
 
-    const { userId, weatherId = null } = createPostParamsSchema.parse(req.params);
+    const {  user_id } = createPostParamsSchema.parse(req.params);
     const { fullName, description, contact, imagesUrl } = createPostBodySchema.parse(req.body);
 
     try {
+             
         const createPostUseCase = makeCreatePostUseCase()
         await createPostUseCase.execute({
-            fullName, description, contact, imagesUrl, user_id: userId, weather_id: weatherId 
+            fullName, description, contact, imagesUrl, 
+            user_id, weather_event_id: null, 
         });
 
         return res.status(201).json();

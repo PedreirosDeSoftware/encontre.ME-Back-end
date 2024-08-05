@@ -12,11 +12,9 @@ export const getSpecificPostPostController: RequestHandler = async (req, res) =>
 
     try {
         const getSpecificPostUseCase = makeGetSpecificUseCase()
-        const post = await getSpecificPostUseCase.execute({
-            name 
-        });
+        const post = await getSpecificPostUseCase.execute({ name });
 
-        return res.status(201).json({ post });
+        return res.status(200).json(post);
 
     } catch (error) {
         if (error instanceof ResourceNotFound) {

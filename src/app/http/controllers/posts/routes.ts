@@ -5,7 +5,7 @@ import { fetchPostsController } from "./fetch-posts-controller";
 import { getSpecificPostPostController } from "./get-specific-controller";
 
 export function postsRoutes(router: Router) {
-    router.post("/user/:userId/posts", authorizationMiddleware, createPostController);
+    router.post("/user/:user_id/posts", authorizationMiddleware, createPostController);
   
     router.get("/posts", fetchPostsController);
     router.get("/posts/specific", getSpecificPostPostController);
