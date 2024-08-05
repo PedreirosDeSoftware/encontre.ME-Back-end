@@ -4,12 +4,12 @@ import { CreatePostUseCaseRequest, CreatePostUseCaseResponse, PostRepository } f
 export class CreatePostUseCase {
     constructor(private postRepository: PostRepository) {}
 
-    async execute({ fullName, description, imagesUrl, contact, user_id, weather_id }: CreatePostUseCaseRequest): Promise<CreatePostUseCaseResponse> {
+    async execute({ fullName, description, imagesUrl, contact, user_id,  }: CreatePostUseCaseRequest): Promise<CreatePostUseCaseResponse> {
         const postName = await this.postRepository.findByName(fullName);
         if (postName) throw new PostAlreadyExistsError();
         
         const post = await this.postRepository.create({
-            fullName, description, imagesUrl, contact, user_id, weather_event_id: weather_id 
+            fullName, description, imagesUrl, contact, user_id
         });
 
         return { post }

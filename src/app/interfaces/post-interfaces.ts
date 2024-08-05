@@ -12,7 +12,7 @@ export interface CreatePostUseCaseRequest {
     contact: string,
     imagesUrl: string,
     user_id: string,
-    weather_id?: string | null,
+    weather_event_id: string | null,
 }
 
 export interface CreatePostUseCaseResponse {

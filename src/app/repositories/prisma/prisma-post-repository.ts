@@ -7,7 +7,7 @@ export class PrismaPostRepository implements PostRepository {
     async create(data: Prisma.PostUncheckedCreateInput) {
         const post = await prisma.post.create({
             data
-        });
+          });
 
         return post;
     }
@@ -26,13 +26,13 @@ export class PrismaPostRepository implements PostRepository {
 
     async findAll(event?: boolean) {
 
-       const posts = await prisma.post.findMany({
-            where: { 
-                weather: {
-                    status: event
-                }
-            }
-       })
+       const posts = await prisma.post.findMany()
+    //         where: { 
+    //             weather: {
+    //                 status: event
+    //             }
+    //         }
+    //    })
 
         return posts;
     }
