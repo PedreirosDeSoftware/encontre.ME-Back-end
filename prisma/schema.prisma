@@ -23,7 +23,7 @@ model User {
     phone        String
     state        String
     city         String
-    cep          String   @db.Char(8)
+    cep          String   @db.Char(10)
     address      String
     createdAt    DateTime @default(now()) @map("created_at")
     posts        Post[]

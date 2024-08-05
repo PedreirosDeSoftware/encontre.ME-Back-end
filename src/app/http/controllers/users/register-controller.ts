@@ -13,7 +13,7 @@ export const registerController: RequestHandler = async (req, res) => {
         phone: z.string(),
         state: z.string(),
         city: z.string(),
-        cep: z.string().max(8),
+        cep: z.string().max(10),
         address: z.string(),
     });
     
