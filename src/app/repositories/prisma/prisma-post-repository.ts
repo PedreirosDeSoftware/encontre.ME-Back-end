@@ -13,11 +13,10 @@ export class PrismaPostRepository implements PostRepository {
     }
 
     async findByName(name: string) {
-        const post = await prisma.post.findUnique({
+        const post = await prisma.post.findFirst({
             where: { 
-                fullName: name, 
-            },
-    
+                fullName: name
+             }    
         })
         if (!post) return null;
 
