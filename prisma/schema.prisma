@@ -25,6 +25,7 @@ model User {
     city         String
     cep          String   @db.Char(8)
     address      String
+    imagesUrl    String?
     createdAt    DateTime @default(now()) @map("created_at")
     posts        Post[]
 

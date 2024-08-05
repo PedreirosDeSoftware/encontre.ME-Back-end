@@ -17,6 +17,7 @@ export interface RegisterUseCaseRequest {
     city: string, 
     cep: string,
     address: string,
+    imagesUrl: string | null,
 }
 
 export interface RegisterUseCaseResponse {
