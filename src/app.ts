@@ -6,22 +6,18 @@ import { postsRoutes } from "./app/http/controllers/posts/routes";
 import morgan from "morgan";
 import swaggerUi from "swagger-ui-express";
 
+import swaggerDocs from "./swagger.json";
+
 export const app: Application = express();
 
 app.use(cors({ origin: "*" }));
 
 app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
+
 app.use(morgan("tiny"));
-app.use(express.static("public"));app.use(
-  "/docs",
-  swaggerUi.serve,
-  swaggerUi.setup(undefined, {
-    swaggerOptions: {
-      url: "/swagger.json",
-    },
-  })
-);
+app.use(express.static("public"));
+app.use("/docs", swaggerUi.serve, swaggerUi.setup(swaggerDocs));
 
 
 const router = express.Router();

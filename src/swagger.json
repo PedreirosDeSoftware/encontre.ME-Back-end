@@ -1,0 +1,80 @@
+{
+    "openapi": "3.0.0",
+    "info": {
+        "title": "API Documentation",
+        "description": "Essa APi tem como objetivo realizar a busca por pessoas desaparecidas",
+        "version": "1.0.0"
+    },
+
+    "server": [
+        {
+            "url": "http://localhost:3333/api",
+            "description": "Servidor de desenvolvimento"
+        }
+    ], 
+    "paths": {
+        "/register": {
+            "post": {
+                "summary": "Cadastrado de uma instituição ou usuário",
+                "description": "Cadastrado de uma instituição ou usuário",
+                "tags": ["Users"],
+                "requestBody": {
+                    "content": {
+                        "application/json": {
+                            "schema": {
+                                "$ref": "#components/schemas/users"
+                            }   
+                        }
+                    }
+                }
+            }
+        }
+    },
+    "components": {
+        "schemas": {
+            "users": {
+                "type": "object",
+                "properties": {
+                    "id": {
+                        "type": "string"
+                    },
+                    "name": {
+                        "type": "string"
+                    },
+                    "email": {
+                        "type": "string"
+                    },
+                    "password": {
+                        "type": "string"
+                    },
+                    "cnpjOrcpf": {
+                        "type": "string"
+                    },
+                    "phone": {
+                        "type": "string"
+                    },
+                    "state": {
+                        "type": "string"
+                    },
+                    "city": {
+                        "type": "string"
+                    },
+                    "cep": {
+                        "type": "string"
+                    },
+                    "address": {
+                        "type": "string"
+                    },
+                    "authorName": {
+                        "type": "string"
+                    },
+                    "imagesUrl": {
+                        "type": "string"
+                    }
+                }
+
+            }
+        }
+    }
+        
+}
