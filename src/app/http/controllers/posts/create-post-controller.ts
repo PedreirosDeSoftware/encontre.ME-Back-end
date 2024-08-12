@@ -23,7 +23,7 @@ export const createPostController: RequestHandler = async (req, res) => {
         const createPostUseCase = makeCreatePostUseCase()
         await createPostUseCase.execute({
             fullName, description, contact, imagesUrl, 
-            user_id, weather_event_id: null, 
+            user_id,  
         });
 
         return res.status(201).json();

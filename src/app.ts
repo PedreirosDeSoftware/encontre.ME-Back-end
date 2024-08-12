@@ -17,7 +17,7 @@ app.use(express.urlencoded({ extended: true }));
 
 app.use(morgan("tiny"));
 app.use(express.static("public"));
-app.use("/docs", swaggerUi.serve, swaggerUi.setup(swaggerDocs));
+app.use("/api/docs", swaggerUi.serve, swaggerUi.setup(swaggerDocs));
 
 
 const router = express.Router();

@@ -22,7 +22,7 @@ export const getUserController: RequestHandler = async (req, res) => {
                 state: user.state,
                 city: user.city,
                 address: user.address,
-                imagesUrl: user.imagesUrl
+                avatarImage: user.avatarImage
             } 
         });
 

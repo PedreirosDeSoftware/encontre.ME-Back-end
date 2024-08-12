@@ -45,7 +45,16 @@ export class PrismaPostRepository implements PostRepository {
         return post;
     }
 
-    searchPosts(query: string): Promise<Post[]> {
-        throw new Error("Method not implemented.");
+    async searchPosts(query: string) {
+        const posts = await prisma.post.findMany({
+            where: {
+                fullName: {
+                    contains: query,
+                    mode: 'insensitive'
+                }
+            }
+        })
+
+        return posts;
     }
 }
