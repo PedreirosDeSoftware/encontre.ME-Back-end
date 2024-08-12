@@ -1,8 +1,6 @@
 import { describe, it, expect, beforeEach } from "vitest";
-import { RegisterUseCase } from "./register";
 import { InMemoryUserRepository } from "../repositories/in-memory/in-memory-user-repository";
-import { compare, hash } from "bcryptjs";
-import { EmailAlreadyExistsError } from "../exceptions/email-already-exists-error";
+import { hash } from "bcryptjs";
 import { GetUserUseCase } from "./get-user";
 
 let usersRepository: InMemoryUserRepository;
@@ -26,7 +24,7 @@ describe('Get User Use Case', () => {
             city: "São Paulo",
             cep: "12345678",
             address: "rua nada",
-            imagesUrl: null,
+            avatarImage: null,
             authorName: null
         })
         const { user } = await sut.execute({

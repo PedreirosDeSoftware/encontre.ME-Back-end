@@ -13,21 +13,21 @@ export const registerController: RequestHandler = async (req, res) => {
         phone: z.string(),
         state: z.string(),
         city: z.string(),
-        imagesUrl: z.string().nullish(),
+        avatarImage: z.string().nullish(),
         cep: z.string().max(8),
         address: z.string(),
     });
     
 
-    const { name, authorName = null , email, password, cnpj_cpf, phone, imagesUrl = null, state, city, cep, address } = registerBodySchema.parse(req.body);
+    const { name, authorName = null , email, password, cnpj_cpf, phone, avatarImage = null, state, city, cep, address } = registerBodySchema.parse(req.body);
 
     try {
         const registerUseCase = makeRegisterUseCase()
-        await registerUseCase.execute({
-            name, email, password, cnpj_cpf, phone, state, city, cep, address, authorName, imagesUrl
+        const { user } = await registerUseCase.execute({
+            name, email, password, cnpj_cpf, phone, state, city, cep, address, authorName, avatarImage
         });
 
-        return res.status(201).json();
+        return res.status(201).json({ user: user.id });
 
     } catch (error) {
         if (error instanceof EmailAlreadyExistsError) {

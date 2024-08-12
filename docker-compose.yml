@@ -6,9 +6,9 @@ services:
     environment:
       - POSTGRES_USER=docker
       - POSTGRES_PASSWORD=docker
-      - POSTGRES_DB=app-hackton
+      - POSTGRES_DB=encontre.me
     volumes:
-      - app-hackton_pg_data:/bitnami/postgresql
+      - encontre.me_pg_data:/bitnami/postgresql
 
 volumes:
-  app-hackton_pg_data:
+  encontre.me_pg_data:

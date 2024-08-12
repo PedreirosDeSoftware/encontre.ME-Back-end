@@ -2,7 +2,7 @@
     "openapi": "3.0.0",
     "info": {
         "title": "API Documentation",
-        "description": "Essa APi tem como objetivo realizar a busca por pessoas desaparecidas",
+        "description": "Essa APi tem como objetivo principal realizar a busca por pessoas desaparecidas.",
         "version": "1.0.0"
     },
 
@@ -13,17 +13,118 @@
         }
     ], 
     "paths": {
-        "/register": {
+        "/api/register": {
             "post": {
                 "summary": "Cadastrado de uma instituição ou usuário",
-                "description": "Cadastrado de uma instituição ou usuário",
                 "tags": ["Users"],
                 "requestBody": {
+                    "description": "Dados para cadastra uma instituição ou usuário(pessoa física)",
                     "content": {
                         "application/json": {
                             "schema": {
-                                "$ref": "#components/schemas/users"
+                                "$ref": "#components/schemas/requestBodyRegister"
                             }   
+                        }
+                    }
+                },
+                "responses": {
+                    "201": {
+                        "description": "Instituição ou usuário criado com sucesso",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "$ref": "#components/schemas/responseRegister"
+                                }
+                            }
+                        }
+                    },
+                    "409": {
+                        "description": "Já existe um usuário com esse e-mail",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "type": "object",
+                                    "properties": {
+                                        "message": {
+                                            "type": "string",
+                                            "example": "Email already exists."
+                                        }
+                                    }                           
+                                }
+                            }
+                        }
+                    }
+                }
+            }
+        },
+
+        "/api/login": {
+            "post": { 
+                "summary": "Login de usuário",
+                "tags": ["Users"],
+                "requestBody": {
+                    "description": "Dados para login de usuário",
+                    "content": {
+                        "application/json": {
+                            "schema": {
+                                "$ref": "#components/schemas/requestBodyLogin"
+                            }
+                        }
+                    }
+                },
+                "responses": {
+                    "200": {
+                        "description": "Token de acesso gerado com sucesso",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "$ref": "#components/schemas/responseLogin"
+                                }
+                            }
+                        }
+                    },
+                    "400": {
+                        "description": "Credenciais inválidas",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                   "type": "object",
+                                    "properties": {
+                                        "message": {
+                                            "type": "string",
+                                            "example": "Invalid Credentials."
+                                        }
+                                    }
+                                }
+                            }
+                        }
+                    }
+                }
+            }
+        },
+
+        "/api/user/{id}":{
+            "get": {
+                "summary": "Busca por uma conta",
+                "tags": ["Users"],
+                "parameters": [
+                    {   
+                        "name": "id",
+                        "in": "path",
+                        "required": true,
+                        "description": "ID da conta",
+                        "format": "uuid"
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "Dados da conta",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "$ref": "#components/schemas/responseUser"
+                                }
+                            }
                         }
                     }
                 }
@@ -32,47 +133,95 @@
     },
     "components": {
         "schemas": {
-            "users": {
+            "requestBodyRegister": {
                 "type": "object",
                 "properties": {
-                    "id": {
-                        "type": "string"
-                    },
                     "name": {
-                        "type": "string"
+                        "type": "string",
+                        "example": "Org 1"
                     },
                     "email": {
-                        "type": "string"
+                        "type": "string",
+                        "example": "johndoe@example.com"
                     },
                     "password": {
-                        "type": "string"
+                        "type": "string",
+                        "example": "12345678"
                     },
-                    "cnpjOrcpf": {
-                        "type": "string"
+                    "cnpj_cpf": {
+                        "type": "string",
+                        "example": "12345678974"
                     },
                     "phone": {
-                        "type": "string"
+                        "type": "string",
+                        "example": "556399999999"
                     },
                     "state": {
-                        "type": "string"
+                        "type": "string",
+                        "example": "PB"
                     },
                     "city": {
-                        "type": "string"
+                        "type": "string", 
+                        "example": "São José"
                     },
                     "cep": {
-                        "type": "string"
+                        "type": "string",
+                        "example": "58000000"
                     },
                     "address": {
-                        "type": "string"
+                        "type": "string",
+                        "example": "Rua desconhecida"
                     },
                     "authorName": {
-                        "type": "string"
+                        "type": "string",
+                        "example": "José Almeida"
                     },
                     "imagesUrl": {
-                        "type": "string"
+                        "type": "string",
+                        "example": "localhost/images/nome-imagem"
                     }
                 }
+            },
 
+            "responseRegister": {
+                "type": "object",
+                "properties": {
+                    "user": {
+                        "type": "string",
+                        "format": "uuid"
+                    }
+                }
+            },
+
+            "requestBodyLogin":{
+                "type": "object",
+                "properties": {
+                    "email": {
+                        "type": "string",
+                        "example": "johndoe@example.com"
+                    },
+                    "password": {
+                        "type": "string",
+                        "example": "12345678"
+                    }
+                }
+            },
+
+            "responseLogin":{
+                "type": "object",
+                "properties": {
+                    "token": {
+                        "type" : "string",
+                        "example": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOiIxMjM0NTY3ODkwIiwibmFtZSI6IkpvaG4gRG9lIiwiaWF0IjoxNTE2MjM5MDIyfQ.SflKxwRJSMeKKF2QT4fwpMeJf36POk6yJV_adQssw5c"
+                    }
+                }
+            },
+
+            "responseUser": {
+                "type": "object",
+                "properties": {
+
+                }
             }
         }
     }

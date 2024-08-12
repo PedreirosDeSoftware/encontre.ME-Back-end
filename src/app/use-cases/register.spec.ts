@@ -25,7 +25,7 @@ describe('Register Use Case', () => {
             city: "São Paulo",
             cep: "12345678",
             address: "rua nada",
-            imagesUrl: null,
+            avatarImage: null,
             authorName: null
         });
         
@@ -47,7 +47,7 @@ describe('Register Use Case', () => {
             city: "São Paulo",
             cep: "12345678",
             address: "rua nada",
-            imagesUrl: null,
+            avatarImage: null,
             authorName: null
         });
 
@@ -62,7 +62,7 @@ describe('Register Use Case', () => {
                 city: "São Paulo",
                 cep: "12345678",
                 address: "rua nada",
-                imagesUrl: null,
+                avatarImage: null,
                 authorName: null
             })
         ).rejects.toBeInstanceOf(EmailAlreadyExistsError);
@@ -81,7 +81,7 @@ describe('Register Use Case', () => {
             phone: "55 61 9999-9999",
             cep: "12345678",
             address: "rua nada",
-            imagesUrl: null,
+            avatarImage: null,
             authorName: null
         });
         const isPasswordCorrectlyHashed = await compare('12345678', user.passwordHash);
