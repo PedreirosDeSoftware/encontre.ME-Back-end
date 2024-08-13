@@ -4,8 +4,10 @@ import { FetchPostsUseCaseRequest, FetchPostsUseCaseResponse, PostRepository } f
 export class FetchPostsUseCase {
     constructor(private postRepository: PostRepository) {}
 
-    async execute({ event }: FetchPostsUseCaseRequest): Promise<FetchPostsUseCaseResponse> {
-        const posts = await this.postRepository.findAll(event);
+    async execute({ fullName, event }: FetchPostsUseCaseRequest): Promise<FetchPostsUseCaseResponse> {
+        const posts = await this.postRepository.findAll({
+            fullName, event
+        });
         if (!posts) throw new ResourceNotFound()
         return { posts }
     }
