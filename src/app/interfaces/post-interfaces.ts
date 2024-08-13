@@ -2,10 +2,14 @@ import { Post, Prisma } from "@prisma/client";
 
 export interface PostRepository {
     create(data: Prisma.PostUncheckedCreateInput): Promise<Post>;
-    findAll(event?: boolean): Promise<Post[]>;
-    searchPosts(query: string): Promise<Post[]>;
+    findAll(query: FilterPosts): Promise<Post[]>;
     findByName(name: string): Promise<Post | null>
     findById(id: string): Promise<Post | null>;
+}
+
+export interface FilterPosts {
+    fullName?: string,
+    event?: boolean,
 }
 
 export interface CreatePostUseCaseRequest {
@@ -21,6 +25,7 @@ export interface CreatePostUseCaseResponse {
 }
 
 export interface FetchPostsUseCaseRequest {
+    fullName?: string,
     event?: boolean
 }
 

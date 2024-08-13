@@ -1,4 +1,4 @@
-import { PostRepository } from "@/app/interfaces/post-interfaces";
+import { FilterPosts, PostRepository } from "@/app/interfaces/post-interfaces";
 import { Post, Prisma } from "@prisma/client";
 import { prisma } from "@/app/lib/prisma";
 
@@ -23,15 +23,13 @@ export class PrismaPostRepository implements PostRepository {
         return post;
     }
 
-    async findAll(event?: boolean) {
+    async findAll(query: FilterPosts) {
 
-       const posts = await prisma.post.findMany()
-    //         where: { 
-    //             weather: {
-    //                 status: event
-    //             }
-    //         }
-    //    })
+        const posts = await prisma.post.findMany({
+            where: {
+                fullName: query.fullName
+            }
+        })
 
         return posts;
     }
@@ -43,18 +41,5 @@ export class PrismaPostRepository implements PostRepository {
         if (!post) return null;
 
         return post;
-    }
-
-    async searchPosts(query: string) {
-        const posts = await prisma.post.findMany({
-            where: {
-                fullName: {
-                    contains: query,
-                    mode: 'insensitive'
-                }
-            }
-        })
-
-        return posts;
     }
 }

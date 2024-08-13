@@ -1,4 +1,4 @@
-import { PostRepository } from "@/app/interfaces/post-interfaces";
+import { FilterPosts, PostRepository } from "@/app/interfaces/post-interfaces";
 import { Post, Prisma } from "@prisma/client";
 import { randomUUID } from "node:crypto";
 import { InMemoryWeatherEventRepository } from "./in-memory-weather-event-repository";
@@ -30,17 +30,20 @@ export class InMemoryPostRepository implements PostRepository {
         return post;
     }
 
-    async findAll(event?: boolean) {
+    async findAll(query: FilterPosts) {
 
-        const weatherEvent = this.weatherEventRepository.events
-            .filter((item) => item.status === event)            
+        // const weatherEvent = this.weatherEventRepository.events
+        //     .filter((item) => item.status === event)            
 
-        if (!event) {
-            return this.posts;
-        }
+        // if (!event) {
+        //     return this.posts;
+        // }
 
+        // const posts = this.posts
+        //     .filter((item) => weatherEvent.some((event) => event.id === item.weather_event_id));
         const posts = this.posts
-            .filter((item) => weatherEvent.some((event) => event.id === item.weather_event_id));
+            .filter((item) => query.fullName ? item.fullName.toLowerCase() === query.fullName.toLowerCase() : true)
+        
         return posts;
     }
 
@@ -51,8 +54,4 @@ export class InMemoryPostRepository implements PostRepository {
         return post;
     }
 
-    async searchPosts(query: string) {
-        const posts = this.posts.filter(item => item.fullName.toLowerCase() === query.toLowerCase())
-        return posts
-    }
 }
