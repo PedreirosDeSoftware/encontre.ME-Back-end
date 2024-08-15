@@ -27,7 +27,10 @@ export class PrismaPostRepository implements PostRepository {
 
         const posts = await prisma.post.findMany({
             where: {
-                fullName: query.fullName
+                fullName: {
+                    contains: query.fullName,
+                    mode: 'insensitive'
+                }
             }
         })
 

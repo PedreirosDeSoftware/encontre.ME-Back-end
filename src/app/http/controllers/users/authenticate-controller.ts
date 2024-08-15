@@ -20,9 +20,20 @@ export const authenticateController: RequestHandler = async (req, res) => {
             email, password
         });
 
-        const token = jwt.sign({ sub: user.id }, env.PRIVATE_KEY, { expiresIn: '7d' });
+        const refreshToken = jwt.sign({ sub: user.id, name: user.name }, 
+            env.PRIVATE_KEY, { expiresIn: '7d' });
+
+        const token = jwt.sign({ sub: user.id, name: user.name }, 
+            env.PRIVATE_KEY, { expiresIn: '10m' });
           
-        return res.status(200).json({ token });
+        return res
+            .cookie('refreshToken', refreshToken, {
+                path: '/',
+                httpOnly: true,
+                secure: true,
+                sameSite: true,
+            })
+            .status(200).json({ token });
 
     } catch (error) {
         if (error instanceof InvalidCredentialsError) {

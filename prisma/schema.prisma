@@ -28,7 +28,6 @@ model User {
     avatarImage  String?  @map("avatar_image")
     createdAt    DateTime @default(now()) @map("created_at")
     posts        Post[]
-    // images       Image[]
 
     @@map("users")
 }
@@ -38,13 +37,13 @@ model Post {
     fullName    String   @unique @map("full_name")
     description String
     contact     String
-    imagesUrl   String   @map("images_url")
+    photo       String?
     createdAt   DateTime @default(now()) @map("created_at")
 
     user_id String
     user    User   @relation(fields: [user_id], references: [id], onDelete: Cascade)
 
-    //images Image[]
+    images Image[]
 
     //weather_event_id String
     // weather          WeatherEvent @relation(fields: [weather_event_id], references: [id])
@@ -52,17 +51,15 @@ model Post {
     @@map("posts")
 }
 
-// model Image {
-//     id      String @id @default(uuid())
-//     url     String
-//     user_id String
-//     post_id String
+model Image {
+    id      String @id @default(uuid())
+    url     String
+    post_id String
 
-//     user User @relation(fields: [user_id], references: [id], onDelete: Cascade)
-//     post Post @relation(fields: [post_id], references: [id], onDelete: Cascade)
+    post Post @relation(fields: [post_id], references: [id], onDelete: Cascade)
 
-//     @@map("images")
-// }
+    @@map("images")
+}
 
 // model WeatherEvent {
 //     id     String  @id @default(uuid())

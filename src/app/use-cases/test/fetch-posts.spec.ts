@@ -1,7 +1,7 @@
 import { describe, it, expect, beforeEach } from "vitest";
-import { InMemoryPostRepository } from "../repositories/in-memory/in-memory-post-repository";
-import { FetchPostsUseCase } from "./fetch-posts";
-import { InMemoryWeatherEventRepository } from "../repositories/in-memory/in-memory-weather-event-repository";
+import { InMemoryPostRepository } from "../../repositories/in-memory/in-memory-post-repository";
+import { FetchPostsUseCase } from "../fetch-posts";
+import { InMemoryWeatherEventRepository } from "../../repositories/in-memory/in-memory-weather-event-repository";
 
 let postRepository: InMemoryPostRepository;
 let weatherEventRepository: InMemoryWeatherEventRepository;
@@ -22,7 +22,6 @@ describe('Fetch Posts Use Case', () => {
                 fullName: `desaparecido ${i}`,
                 description: 'é uma pessoa desaparecida',
                 contact: '55 61 9999-9999',
-                imagesUrl: '/local/images/upload',
                 user_id: 'user-1',
             });
         }
@@ -40,7 +39,6 @@ describe('Fetch Posts Use Case', () => {
                 fullName: `desaparecido ${i}`,
                 description: 'é uma pessoa desaparecida',
                 contact: '55 61 9999-9999',
-                imagesUrl: '/local/images/upload',
                 user_id: 'user-1',
             });
         }
@@ -65,7 +63,6 @@ describe('Fetch Posts Use Case', () => {
                 fullName: `desaparecido ${i}`,
                 description: 'é uma pessoa desaparecida',
                 contact: '55 61 9999-9999',
-                imagesUrl: '/local/images/upload',
                 user_id: 'no-existing',
             });
         }
