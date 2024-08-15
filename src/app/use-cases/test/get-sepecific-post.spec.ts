@@ -1,8 +1,8 @@
 import { describe, it, expect, beforeEach } from "vitest";
-import { InMemoryPostRepository } from "../repositories/in-memory/in-memory-post-repository";
-import { GetSpecificPostUseCase } from "./get-specific-post";
-import { ResourceNotFound } from "../exceptions/resource-not-found";
-import { InMemoryWeatherEventRepository } from "../repositories/in-memory/in-memory-weather-event-repository";
+import { InMemoryPostRepository } from "../../repositories/in-memory/in-memory-post-repository";
+import { GetSpecificPostUseCase } from "../get-specific-post";
+import { ResourceNotFound } from "../../exceptions/resource-not-found";
+import { InMemoryWeatherEventRepository } from "../../repositories/in-memory/in-memory-weather-event-repository";
 
 let postRepository: InMemoryPostRepository;
 let weatherEventRepository: InMemoryWeatherEventRepository;
@@ -22,7 +22,6 @@ describe('Get Specific Post Use Case', () => {
                 fullName: `desaparecido 1`,
                 description: 'é uma pessoa desaparecida',
                 contact: '55 61 9999-9999',
-                imagesUrl: '/local/images/upload',
                 user_id: 'user-1',
             });
             
@@ -39,7 +38,6 @@ describe('Get Specific Post Use Case', () => {
                 fullName: `desaparecido ${i}`,
                 description: 'é uma pessoa desaparecida',
                 contact: '55 61 9999-9999',
-                imagesUrl: '/local/images/upload',
                 user_id: 'user-1',
             });
         }

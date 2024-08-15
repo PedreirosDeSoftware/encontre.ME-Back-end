@@ -5,16 +5,16 @@ import { ResourceNotFound } from "@/app/exceptions/resource-not-found";
 
 export const fetchPostsController: RequestHandler = async (req, res) => {
     const fetchPostsParamsSchema = z.object({
-        fullName: z.string().optional(),
+        name: z.string().optional(),
         event: z.boolean().optional()
     });
 
 
-    const { fullName, event } = fetchPostsParamsSchema.parse(req.query)
+    const { name, event } = fetchPostsParamsSchema.parse(req.query)
 
     try {
         const fetchPostsUseCase = makeFetchPostsUseCase()        
-        const posts = await fetchPostsUseCase.execute({ fullName, event });
+        const posts = await fetchPostsUseCase.execute({ fullName: name, event });
         return res.status(200).json(posts);
 
     } catch (error) {

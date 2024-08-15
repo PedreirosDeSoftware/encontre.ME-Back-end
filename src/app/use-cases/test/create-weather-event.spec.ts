@@ -1,6 +1,6 @@
 import { describe, it, expect, beforeEach } from "vitest";
-import { InMemoryWeatherEventRepository } from "../repositories/in-memory/in-memory-weather-event-repository";
-import { CreateWeatherEventUseCase } from "./create-weather-event";
+import { InMemoryWeatherEventRepository } from "../../repositories/in-memory/in-memory-weather-event-repository";
+import { CreateWeatherEventUseCase } from "../create-weather-event";
 
 let weatherEventRepository: InMemoryWeatherEventRepository;
 let sut: CreateWeatherEventUseCase; 

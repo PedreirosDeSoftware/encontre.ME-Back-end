@@ -12,11 +12,15 @@ export interface FilterPosts {
     event?: boolean,
 }
 
+export interface FilePath {
+    url: string | null,
+}
+
 export interface CreatePostUseCaseRequest {
     fullName: string, 
     description: string,
     contact: string,
-    imagesUrl: string,
+    images: FilePath[]
     user_id: string,
 }
 

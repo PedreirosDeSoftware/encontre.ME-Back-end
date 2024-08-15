@@ -13,14 +13,14 @@ export const registerController: RequestHandler = async (req, res) => {
         phone: z.string(),
         state: z.string(),
         city: z.string(),
-        avatarImage: z.string().nullish(),
         cep: z.string().max(8),
         address: z.string(),
     });
     
+    const { name, authorName = null , email, password, cnpj_cpf, phone, state, city, cep, address } = registerBodySchema.parse(req.body);
 
-    const { name, authorName = null , email, password, cnpj_cpf, phone, avatarImage = null, state, city, cep, address } = registerBodySchema.parse(req.body);
-
+    const avatarImage = req.file?.path ?? null;
+    
     try {
         const registerUseCase = makeRegisterUseCase()
         const { user } = await registerUseCase.execute({

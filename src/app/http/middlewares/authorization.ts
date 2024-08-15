@@ -7,7 +7,7 @@ export const authorizationMiddleware: RequestHandler = (req, res, next) => {
     const authHeader = req.headers.authorization;
     if(!authHeader) return res.status(401).json({ message: "Unauthorized" });
 
-    const [Bearer, token] = authHeader.split(" ");
+    const [, token] = authHeader.split(" ");
 
     try {
         jwt.verify(token, env.PRIVATE_KEY);
