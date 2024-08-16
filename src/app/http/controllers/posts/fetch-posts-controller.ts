@@ -6,7 +6,7 @@ import { ResourceNotFound } from "@/app/exceptions/resource-not-found";
 export const fetchPostsController: RequestHandler = async (req, res) => {
     const fetchPostsParamsSchema = z.object({
         name: z.string().optional(),
-        event: z.boolean().optional()
+        event: z.coerce.boolean().optional()
     });
 
 
@@ -19,7 +19,7 @@ export const fetchPostsController: RequestHandler = async (req, res) => {
 
     } catch (error) {
         if (error instanceof ResourceNotFound) {
-            return res.status(404).json({ message: error.message });
+            return res.status(400).json({ message: error.message });
         }
         throw error
     }

@@ -45,12 +45,5 @@ export interface GetSpecificPostUseCaseResponse {
     post: Post
 }
 
-export interface SearchPostUseCaseRequest {
-    query: string
-}
-
-export interface SearchPostUseCaseResponse {
-    posts: Post[]
-}
 
 

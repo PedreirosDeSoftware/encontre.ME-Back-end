@@ -1,17 +1,17 @@
 import { describe, it, expect, beforeEach } from "vitest";
 import { InMemoryPostRepository } from "../../repositories/in-memory/in-memory-post-repository";
 import { FetchPostsUseCase } from "../fetch-posts";
-import { InMemoryWeatherEventRepository } from "../../repositories/in-memory/in-memory-weather-event-repository";
+import { InMemoryEventRepository } from "../../repositories/in-memory/in-memory-event-repository";
 
 let postRepository: InMemoryPostRepository;
-let weatherEventRepository: InMemoryWeatherEventRepository;
+let eventRepository: InMemoryEventRepository;
 let sut: FetchPostsUseCase; 
 
 describe('Fetch Posts Use Case', () => {
 
     beforeEach(() => {
-        weatherEventRepository = new InMemoryWeatherEventRepository;
-        postRepository = new InMemoryPostRepository(weatherEventRepository);
+        eventRepository = new InMemoryEventRepository;
+        postRepository = new InMemoryPostRepository(eventRepository);
         sut = new FetchPostsUseCase(postRepository);
 
     });
@@ -23,6 +23,7 @@ describe('Fetch Posts Use Case', () => {
                 description: 'é uma pessoa desaparecida',
                 contact: '55 61 9999-9999',
                 user_id: 'user-1',
+                event_id: null
             });
         }
 
@@ -40,6 +41,7 @@ describe('Fetch Posts Use Case', () => {
                 description: 'é uma pessoa desaparecida',
                 contact: '55 61 9999-9999',
                 user_id: 'user-1',
+                event_id: null
             });
         }
             
@@ -50,27 +52,28 @@ describe('Fetch Posts Use Case', () => {
         expect(posts).toEqual([expect.objectContaining({ fullName: 'desaparecido 20' })]);
     });
 
-    it.skip('should be able to search posts from a weather event', async () => { 
-        const event = await weatherEventRepository.create({
+    it('should be able to search posts from a event', async () => { 
+        const event = await eventRepository.create({
             name: 'evento de teste',
             state: 'USA', 
             city: 'California',
             status: true
         })
 
-        for(let i = 1; i <= 20; i++) {
+        for(let i = 1; i <= 10; i++) {
             await postRepository.create({
                 fullName: `desaparecido ${i}`,
                 description: 'é uma pessoa desaparecida',
                 contact: '55 61 9999-9999',
-                user_id: 'no-existing',
+                user_id: 'user-id',
+                event_id: event.id
             });
         }
         
         const { posts } = await sut.execute({
-            event: event.status
-        });
+            event: true
+        });        
 
-        expect(posts).toHaveLength(20);
+        expect(posts).toHaveLength(10);
     });
 });

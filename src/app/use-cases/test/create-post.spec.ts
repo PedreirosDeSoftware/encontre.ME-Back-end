@@ -2,22 +2,22 @@ import { describe, it, expect, beforeEach } from "vitest";
 import { InMemoryPostRepository } from "../../repositories/in-memory/in-memory-post-repository";
 import { CreatePostUseCase } from "../create-post";
 import { PostAlreadyExistsError } from "../../exceptions/post-already-exist-error";
-import { InMemoryWeatherEventRepository } from "../../repositories/in-memory/in-memory-weather-event-repository";
+import { InMemoryEventRepository } from "../../repositories/in-memory/in-memory-event-repository";
 import { InMemoryImageRepository } from "@/app/repositories/in-memory/in-memory-image-repository";
 import { InvalidRequestError } from "@/app/exceptions/invalid-request-images-error";
-import { randomUUID } from "crypto";
+
 
 let postRepository: InMemoryPostRepository;
-let weatherEventRepository: InMemoryWeatherEventRepository;
+let eventRepository: InMemoryEventRepository;
 let imageRepository: InMemoryImageRepository;
 let sut: CreatePostUseCase; 
 
 describe('Create Post Use Case', () => {
 
     beforeEach(() => {
-        weatherEventRepository = new InMemoryWeatherEventRepository();
+        eventRepository = new InMemoryEventRepository();
         imageRepository = new InMemoryImageRepository();
-        postRepository = new InMemoryPostRepository(weatherEventRepository);
+        postRepository = new InMemoryPostRepository(eventRepository);
         sut = new CreatePostUseCase(postRepository, imageRepository);
 
     });

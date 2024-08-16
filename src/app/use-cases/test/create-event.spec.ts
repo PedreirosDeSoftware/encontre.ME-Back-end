@@ -1,15 +1,15 @@
 import { describe, it, expect, beforeEach } from "vitest";
-import { InMemoryWeatherEventRepository } from "../../repositories/in-memory/in-memory-weather-event-repository";
-import { CreateWeatherEventUseCase } from "../create-weather-event";
+import { InMemoryEventRepository } from "../../repositories/in-memory/in-memory-event-repository";
+import { CreateEventUseCase } from "../create-event";
 
-let weatherEventRepository: InMemoryWeatherEventRepository;
-let sut: CreateWeatherEventUseCase; 
+let eventRepository: InMemoryEventRepository;
+let sut: CreateEventUseCase; 
 
 describe('Create Weather Event Use Case', () => {
 
     beforeEach(() => {
-        weatherEventRepository = new InMemoryWeatherEventRepository();
-        sut = new CreateWeatherEventUseCase(weatherEventRepository);
+        eventRepository = new InMemoryEventRepository();
+        sut = new CreateEventUseCase(eventRepository);
     });
 
     it('should be able to create weather event', async () => { 

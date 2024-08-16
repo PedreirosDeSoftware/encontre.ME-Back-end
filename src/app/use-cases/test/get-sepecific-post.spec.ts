@@ -2,17 +2,17 @@ import { describe, it, expect, beforeEach } from "vitest";
 import { InMemoryPostRepository } from "../../repositories/in-memory/in-memory-post-repository";
 import { GetSpecificPostUseCase } from "../get-specific-post";
 import { ResourceNotFound } from "../../exceptions/resource-not-found";
-import { InMemoryWeatherEventRepository } from "../../repositories/in-memory/in-memory-weather-event-repository";
+import { InMemoryEventRepository } from "../../repositories/in-memory/in-memory-event-repository";
 
 let postRepository: InMemoryPostRepository;
-let weatherEventRepository: InMemoryWeatherEventRepository;
+let eventRepository: InMemoryEventRepository;
 let sut: GetSpecificPostUseCase; 
 
 describe('Get Specific Post Use Case', () => {
 
     beforeEach(() => {
-        weatherEventRepository = new InMemoryWeatherEventRepository;
-        postRepository = new InMemoryPostRepository(weatherEventRepository);
+        eventRepository = new InMemoryEventRepository;
+        postRepository = new InMemoryPostRepository(eventRepository);
         sut = new GetSpecificPostUseCase(postRepository);
 
     });
