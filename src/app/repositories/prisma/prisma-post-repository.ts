@@ -1,5 +1,5 @@
 import { FilterPosts, PostRepository } from "@/app/interfaces/post-interfaces";
-import { Post, Prisma } from "@prisma/client";
+import { Prisma } from "@prisma/client";
 import { prisma } from "@/app/lib/prisma";
 
 export class PrismaPostRepository implements PostRepository {
@@ -16,7 +16,7 @@ export class PrismaPostRepository implements PostRepository {
         const post = await prisma.post.findFirst({
             where: { 
                 fullName: name
-             }    
+            }    
         })
         if (!post) return null;
 
@@ -30,8 +30,11 @@ export class PrismaPostRepository implements PostRepository {
                 fullName: {
                     contains: query.fullName,
                     mode: 'insensitive'
+                },
+                Event: {
+                    status: query.event
                 }
-            }
+            }, 
         })
 
         return posts;

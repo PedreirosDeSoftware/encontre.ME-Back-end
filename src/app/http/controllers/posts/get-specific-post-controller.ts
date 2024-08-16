@@ -18,7 +18,7 @@ export const getSpecificPostController: RequestHandler = async (req, res) => {
 
     } catch (error) {
         if (error instanceof ResourceNotFound) {
-            return res.status(404).json({ message: error.message });
+            return res.status(400).json({ message: error.message });
         }
         throw error
     }

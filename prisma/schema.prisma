@@ -45,8 +45,8 @@ model Post {
 
     images Image[]
 
-    //weather_event_id String
-    // weather          WeatherEvent @relation(fields: [weather_event_id], references: [id])
+    event_id String?
+    Event    Event?  @relation(fields: [event_id], references: [id])
 
     @@map("posts")
 }
@@ -61,13 +61,13 @@ model Image {
     @@map("images")
 }
 
-// model WeatherEvent {
-//     id     String  @id @default(uuid())
-//     name   String
-//     state  String
-//     city   String
-//     status Boolean @default(true)
-//     posts  Post[]
+model Event {
+    id     String  @id @default(uuid())
+    name   String
+    state  String
+    city   String
+    status Boolean @default(true)
+    posts  Post[]
 
-//     @@map("weather_events")
-// }
+    @@map("events")
+}

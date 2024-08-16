@@ -1,8 +1,8 @@
-import { PrismaWeatherEventRepository } from "../repositories/prisma/prisma-weather-event-repository";
-import { CreateWeatherEventUseCase } from "../use-cases/create-weather-event";
+import { PrismaEventRepository } from "../repositories/prisma/prisma-event-repository";
+import { CreateEventUseCase } from "../use-cases/create-event";
 
 export function makeCreateWeatherEventUseCase() {
-    const weatherEventRepository = new PrismaWeatherEventRepository();
-    const useCase = new CreateWeatherEventUseCase(weatherEventRepository);
+    const eventRepository = new PrismaEventRepository();
+    const useCase = new CreateEventUseCase(eventRepository);
     return useCase;
 }

@@ -5,10 +5,11 @@ import { createAndAuthenticateUser } from "@/app/utils/create-and-authenticate-u
 
 describe('Get User e2e', () => {
     it('should be able to get user',async () => {
-        const { id } = await createAndAuthenticateUser();
+        const { id, token } = await createAndAuthenticateUser();
 
         const response = await request(app)
             .get(`/api/user/${id}`)
+            .set("Authorization", `Bearer ${token}`)
             .send();
 
         expect(response.statusCode).toEqual(200);

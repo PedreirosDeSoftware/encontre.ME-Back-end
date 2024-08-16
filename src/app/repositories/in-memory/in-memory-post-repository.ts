@@ -1,12 +1,12 @@
 import { FilterPosts, PostRepository } from "@/app/interfaces/post-interfaces";
 import { Post, Prisma } from "@prisma/client";
 import { randomUUID } from "node:crypto";
-import { InMemoryWeatherEventRepository } from "./in-memory-weather-event-repository";
+import { InMemoryEventRepository } from "./in-memory-event-repository";
 
 export class InMemoryPostRepository implements PostRepository {
     public posts: Post[] = [];
 
-    constructor(private weatherEventRepository: InMemoryWeatherEventRepository) {}
+    constructor(private eventRepository: InMemoryEventRepository) {}
 
     async create(data: Prisma.PostUncheckedCreateInput) {
         const post = {
@@ -16,6 +16,7 @@ export class InMemoryPostRepository implements PostRepository {
             contact: data.contact,
             photo: data.photo ?? null,
             user_id: data.user_id,
+            event_id: data.event_id ?? null,
             createdAt: new Date()
         }
 
@@ -32,19 +33,23 @@ export class InMemoryPostRepository implements PostRepository {
 
     async findAll(query: FilterPosts) {
 
-        // const weatherEvent = this.weatherEventRepository.events
-        //     .filter((item) => item.status === event)            
+        const event = this.eventRepository.events  
+            .filter((item) => query.event ? item.status === query.event : false)          
+        
+        if (event.length > 0) {
 
-        // if (!event) {
-        //     return this.posts;
-        // }
+            const postsWithEvent = this.posts
+                .filter((item) => event.some((e) => e.id === item.event_id))
+                .filter((item) => query.fullName ? item.fullName.toLowerCase() === query.fullName.toLowerCase() : true)
+                
+            return postsWithEvent
+        }
 
-        // const posts = this.posts
-        //     .filter((item) => weatherEvent.some((event) => event.id === item.weather_event_id));
         const posts = this.posts
             .filter((item) => query.fullName ? item.fullName.toLowerCase() === query.fullName.toLowerCase() : true)
-        
-        return posts;
+                     
+        return posts
+
     }
 
     async findById(id: string) {
