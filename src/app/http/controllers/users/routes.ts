@@ -9,7 +9,7 @@ import { authorizationMiddleware } from "../../middlewares/authorization";
 
 export function usersRoutes(route: Router) {
     //* Routes Publics */
-    route.post("/register", upload.single('avatar'), registerController);
+    route.post("/register",registerController);
     route.post("/login", authenticateController);
 
     //* Routes Privates */

@@ -11,6 +11,6 @@ export function postsRoutes(router: Router) {
     authorizationMiddleware, createPostController);
   
     //* Routes Publics */
-    router.get("/posts", fetchPostsController);
-    router.get("/posts/:id", getSpecificPostController);
+    router.get("/posts", authorizationMiddleware, fetchPostsController);
+    router.get("/posts/:id",authorizationMiddleware, getSpecificPostController);
 }

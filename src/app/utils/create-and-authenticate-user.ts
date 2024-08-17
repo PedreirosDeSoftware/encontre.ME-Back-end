@@ -15,7 +15,7 @@ export async function createAndAuthenticateUser() {
             state: "Brazil",
             city: "São Paulo",
             cep: "12345678",
-            address: "rua nada"
+            address: "rua nada",
         }
     });
 
