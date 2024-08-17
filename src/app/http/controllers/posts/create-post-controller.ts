@@ -20,7 +20,7 @@ export const createPostController: RequestHandler = async (req, res) => {
     const { fullName, description, contact } = createPostBodySchema.parse(req.body);
 
     const images: FilePath[] = req.files
-        ? (req.files as Express.Multer.File[]).map(file => ({ url: file.path ?? '' }))
+        ? (req.files as Express.Multer.File[]).map(file => ({ url: file.filename ?? '' }))
         : [];
 
 
