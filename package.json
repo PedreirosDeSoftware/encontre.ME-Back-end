@@ -6,11 +6,11 @@
   "scripts": {
     "dev": "tsx watch src/server.ts",
     "start": "node build/server.js",
-    "teste:create-prisma-environment": "npm link ./prisma/vitest-environment-prisma",
+    "test:create-prisma-environment": "npm link ./prisma/vitest-environment-prisma",
     "test:install-prisma-environment": "npm link vitest-environment-prisma",
     "test": "vitest run --dir src/app/use-cases",
     "test:watch": "vitest --dir src/app/use-cases",
-    "pretest:e2e": "run-s teste:create-prisma-environment test:install-prisma-environment",
+    "pretest:e2e": "run-s test:create-prisma-environment test:install-prisma-environment",
     "test:e2e": "vitest run --dir src/app/http",
     "test:e2e:watch": "vitest --dir src/app/http",
     "test:coverage": "vitest --coverage",
@@ -23,6 +23,7 @@
     "cors": "2.8.5",
     "express": "4.19.2",
     "jsonwebtoken": "9.0.2",
+    "nodemailer": "6.9.14",
     "zod": "3.23.8"
   },
   "devDependencies": {
@@ -33,6 +34,7 @@
     "@types/morgan": "1.9.9",
     "@types/multer": "1.4.11",
     "@types/node": "22.1.0",
+    "@types/nodemailer": "6.4.15",
     "@types/supertest": "6.0.2",
     "@types/swagger-ui-express": "4.1.6",
     "@vitest/coverage-v8": "2.0.4",

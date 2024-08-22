@@ -4,6 +4,7 @@ import { RequestHandler } from "express";
 import { z } from "zod";
 import jwt from "jsonwebtoken";
 import { env } from "@/env/schema";
+import { ActivationAccountError } from "@/app/exceptions/activation-account-error";
 
 export const authenticateController: RequestHandler = async (req, res) => {
     const authenticateBodySchema = z.object({
@@ -24,7 +25,7 @@ export const authenticateController: RequestHandler = async (req, res) => {
             env.PRIVATE_KEY, { expiresIn: '7d' });
 
         const token = jwt.sign({ sub: user.id, name: user.name }, 
-            env.PRIVATE_KEY, { expiresIn: '10m' });
+            env.PRIVATE_KEY, { expiresIn: '1d' });
           
         return res
             .cookie('refreshToken', refreshToken, {
@@ -39,6 +40,11 @@ export const authenticateController: RequestHandler = async (req, res) => {
         if (error instanceof InvalidCredentialsError) {
             return res.status(400).json({ message: error.message });
         }
+
+        if (error instanceof ActivationAccountError) {
+            return res.status(400).json({ message: error.message });
+        }
+        
         throw error
     }
 }

@@ -14,20 +14,21 @@ datasource db {
 }
 
 model User {
-    id           String   @id @default(uuid())
-    name         String
-    authorName   String?  @map("author_name")
-    email        String   @unique
-    passwordHash String   @map("password_hash")
-    cnpj_cpf     String   @unique
-    phone        String
-    state        String
-    city         String
-    cep          String   @db.Char(10)
-    address      String
-    avatarImage  String?  @map("avatar_image")
-    createdAt    DateTime @default(now()) @map("created_at")
-    posts        Post[]
+    id                 String              @id @default(uuid())
+    name               String
+    authorName         String?             @map("author_name")
+    email              String              @unique
+    passwordHash       String              @map("password_hash")
+    cnpj_cpf           String              @unique
+    phone              String
+    state              String
+    city               String
+    cep                String              @db.Char(10)
+    address            String
+    avatarImage        String?             @map("avatar_image")
+    createdAt          DateTime            @default(now()) @map("created_at")
+    posts              Post[]
+    activationAccounts ActivationAccount[]
 
     @@map("users")
 }
@@ -70,4 +71,13 @@ model Event {
     posts  Post[]
 
     @@map("events")
+}
+
+model ActivationAccount {
+    id         String    @id @default(uuid())
+    activation DateTime?
+    user_id    String    @unique
+    user       User      @relation(fields: [user_id], references: [id], onDelete: Cascade)
+
+    @@map("acitivation_account")
 }

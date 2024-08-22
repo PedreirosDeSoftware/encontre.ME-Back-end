@@ -6,6 +6,8 @@ const envSchema = z.object({
     DATABASE_URL: z.string(),
     PRIVATE_KEY: z.coerce.string(),
     PORT: z.coerce.number().default(3333),
+    EMAIL: z.string(),
+    EMAIL_PASSWORD: z.string(),
 });
 
 const _env = envSchema.safeParse(process.env);
