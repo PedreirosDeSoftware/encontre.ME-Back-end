@@ -19,6 +19,13 @@ export async function createAndAuthenticateUser() {
         }
     });
 
+    await prisma.activationAccount.create({
+        data: { 
+            activation: new Date(),
+            user_id: user.id,
+        }
+    });
+
     const response = await request(app)
         .post('/api/login')
         .send({
