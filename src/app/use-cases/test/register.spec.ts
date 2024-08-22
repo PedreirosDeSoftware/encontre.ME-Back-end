@@ -3,15 +3,18 @@ import { RegisterUseCase } from "../register";
 import { InMemoryUserRepository } from "../../repositories/in-memory/in-memory-user-repository";
 import { compare } from "bcryptjs";
 import { EmailAlreadyExistsError } from "../../exceptions/email-already-exists-error";
+import { InMemoryActivationAccount } from "@/app/repositories/in-memory/in-memory-activation-account-repository";
 
 let usersRepository: InMemoryUserRepository;
+let activationAccount: InMemoryActivationAccount;
 let sut: RegisterUseCase; 
 
 describe('Register Use Case', () => {
 
     beforeEach(() => {
         usersRepository = new InMemoryUserRepository();
-        sut = new RegisterUseCase(usersRepository);
+        activationAccount = new InMemoryActivationAccount();
+        sut = new RegisterUseCase(usersRepository, activationAccount);
     });
 
     it('should be able to register', async () => { 

@@ -2,6 +2,8 @@ import { makeRegisterUseCase } from "@/app/factories/make-register-use-case";
 import { EmailAlreadyExistsError } from "@/app/exceptions/email-already-exists-error";
 import { RequestHandler } from "express";
 import { z }from "zod";
+import { sendMailClient } from "@/app/lib/mail";
+import nodemailer from "nodemailer";
 
 export const registerController: RequestHandler = async (req, res) => {
     const registerBodySchema = z.object({
@@ -10,7 +12,7 @@ export const registerController: RequestHandler = async (req, res) => {
         email: z.string().email(),
         password: z.string().min(8),
         cnpj_cpf: z.string(),
-        phone: z.string(),
+        phone: z.string().trim(),
         state: z.string(),
         city: z.string(),
         cep: z.string().max(10),
@@ -27,6 +29,7 @@ export const registerController: RequestHandler = async (req, res) => {
             name, email, password, cnpj_cpf, phone, state, city, cep, address, authorName, avatarImage
         });
 
+        await sendMailClient(user);
         return res.status(201).json({ user: user.id });
 
     } catch (error) {
