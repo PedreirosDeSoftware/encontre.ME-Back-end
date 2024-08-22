@@ -1,14 +1,16 @@
-import { describe, expect, it } from "vitest";
+import { beforeEach, describe, expect, it } from "vitest";
 import { app } from "@/app";
 import request from "supertest";
 import { createAndAuthenticateUser } from "@/app/utils/create-and-authenticate-user";
 import { prisma } from "@/app/lib/prisma";
 
 describe('Fetch Posts e2e', async () => {
-
+    
+    const { id, token } = await createAndAuthenticateUser();
+  
     it('should be able to fetch posts', async () => {
 
-        const { id } = await createAndAuthenticateUser();
+        
         
         const event = await prisma.event.create({
             data: {
@@ -41,6 +43,7 @@ describe('Fetch Posts e2e', async () => {
            
         const response = await request(app)
             .get('/api/posts')
+            .set("Authorization", `Bearer ${token}`)
             .send();
 
         expect(response.statusCode).toEqual(200);
@@ -51,6 +54,7 @@ describe('Fetch Posts e2e', async () => {
 
         const response = await request(app)
             .get('/api/posts')
+            .set("Authorization", `Bearer ${token}`)
             .query({
                 name: 'lucas'
             })
@@ -63,6 +67,7 @@ describe('Fetch Posts e2e', async () => {
 
         const response = await request(app)
             .get('/api/posts')
+            .set("Authorization", `Bearer ${token}`)
             .query({
                 event: true
             })

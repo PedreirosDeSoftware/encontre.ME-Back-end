@@ -6,7 +6,7 @@ import { prisma } from "@/app/lib/prisma";
 
 describe('Get Specific Post e2e', () => {
     it('should be able to get specific post',async () => {
-        const { id } = await createAndAuthenticateUser();        
+        const { id, token } = await createAndAuthenticateUser();        
 
         const post = await prisma.post.create({
             data: {
@@ -19,6 +19,7 @@ describe('Get Specific Post e2e', () => {
 
         const response = await request(app)
             .get(`/api/posts/${post.id}`)
+            .set("Authorization", `Bearer ${token}`)
             .send();        
 
         expect(response.statusCode).toEqual(200);
