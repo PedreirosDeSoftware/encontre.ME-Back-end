@@ -14,6 +14,10 @@ app.use(cors({ origin: "*" }));
 
 app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
+const uploadDir = path.resolve(__dirname, '..', 'temp', 'uploads');
+
+// Middleware para servir arquivos estáticos
+app.use('/uploads', express.static(uploadDir));
 
 app.use(morgan("dev"));
 app.use("/api/docs", swaggerUi.serve, swaggerUi.setup(swaggerDocs));
@@ -22,8 +26,8 @@ const router = express.Router();
 
 app.use('/api', router);
 
-app.use(erroHandler);
 
 postsRoutes(router);
 accountsRoutes(router);
 
+app.use(erroHandler);
