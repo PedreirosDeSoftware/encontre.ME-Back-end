@@ -7,7 +7,6 @@ import morgan from "morgan";
 import swaggerUi from "swagger-ui-express";
 import swaggerDocs from "./swagger.json";
 import { erroHandler } from "./error-handler";
-
 import path from "node:path";
 
 export const app: Application = express();
