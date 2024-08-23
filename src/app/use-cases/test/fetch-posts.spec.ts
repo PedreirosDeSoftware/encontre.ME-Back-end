@@ -22,7 +22,7 @@ describe('Fetch Posts Use Case', () => {
                 fullName: `desaparecido ${i}`,
                 description: 'é uma pessoa desaparecida',
                 contact: '55 61 9999-9999',
-                user_id: 'user-1',
+                account_id: 'account-1',
                 event_id: null
             });
         }
@@ -40,7 +40,7 @@ describe('Fetch Posts Use Case', () => {
                 fullName: `desaparecido ${i}`,
                 description: 'é uma pessoa desaparecida',
                 contact: '55 61 9999-9999',
-                user_id: 'user-1',
+                account_id: 'account-1',
                 event_id: null
             });
         }
@@ -65,7 +65,7 @@ describe('Fetch Posts Use Case', () => {
                 fullName: `desaparecido ${i}`,
                 description: 'é uma pessoa desaparecida',
                 contact: '55 61 9999-9999',
-                user_id: 'user-id',
+                account_id: 'account-id',
                 event_id: event.id
             });
         }

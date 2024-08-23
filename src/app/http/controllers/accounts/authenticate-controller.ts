@@ -1,10 +1,11 @@
-import { makeAuthenticateUseCase } from "@/app/factories/make-authenticate-use-case";
+
 import { InvalidCredentialsError } from "@/app/exceptions/invalid-credentials-error";
 import { RequestHandler } from "express";
 import { z } from "zod";
 import jwt from "jsonwebtoken";
 import { env } from "@/env/schema";
 import { ActivationAccountError } from "@/app/exceptions/activation-account-error";
+import { makeAuthenticateUseCase } from "@/app/factories/make-authenticate-use-case";
 
 export const authenticateController: RequestHandler = async (req, res) => {
     const authenticateBodySchema = z.object({
@@ -15,16 +16,15 @@ export const authenticateController: RequestHandler = async (req, res) => {
     const { email, password } = authenticateBodySchema.parse(req.body);
 
     try {
-        const authenticateUseCase = makeAuthenticateUseCase();
-        
-        const { user } =  await authenticateUseCase.execute({
+        const authenticateUseCase = makeAuthenticateUseCase();        
+        const { account } =  await authenticateUseCase.execute({
             email, password
         });
 
-        const refreshToken = jwt.sign({ sub: user.id, name: user.name }, 
+        const refreshToken = jwt.sign({ sub: account.id, name: account.name }, 
             env.PRIVATE_KEY, { expiresIn: '7d' });
 
-        const token = jwt.sign({ sub: user.id, name: user.name }, 
+        const token = jwt.sign({ sub: account.id, name: account.name }, 
             env.PRIVATE_KEY, { expiresIn: '1d' });
           
         return res

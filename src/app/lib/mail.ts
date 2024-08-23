@@ -1,5 +1,6 @@
 import { env } from "@/env/schema";
 import nodemailer from "nodemailer";
+import "dotenv/config"
 
 interface props {
     id: string,
@@ -8,28 +9,28 @@ interface props {
 }
 
 export async function sendMailClient({ id, email, name  }: props) {
-    //const account = await nodemailer.createTestAccount()
-    // const transporter = nodemailer.createTransport({
-    //     host: 'smtp.ethereal.email',
-    //     port: 587,
-    //     secure: false,
-    //     auth: { 
-    //         user: account.user,
-    //         pass: account.pass
-    //     }
-    // });
-
-    const transporter = await nodemailer.createTransport({
-        host: 'smtp.gmail.com',
+    const account = await nodemailer.createTestAccount();
+    const transporter = nodemailer.createTransport({
+        host: 'smtp.ethereal.email',
         port: 587,
         secure: false,
-        auth: {
-            user: env.EMAIL,
-            pass: env.EMAIL_PASSWORD
+        auth: { 
+            user: account.user,
+            pass: account.pass
         }
     });
 
-    const activationAccount = `http://localhost:3333/api/user/${id}/activation`
+    // const transporter = nodemailer.createTransport({
+    //     host: 'smtp.gmail.com',
+    //     port: 587,
+    //     secure: false,
+    //     auth: {
+    //         user: env.EMAIL,
+    //         pass: env.EMAIL_PASSWORD
+    //     }
+    // });
+
+    const activationAccount = `http://localhost:3333/api/account/${id}/activation`
 
     const message = await transporter.sendMail({
         from: {

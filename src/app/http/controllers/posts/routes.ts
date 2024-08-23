@@ -7,7 +7,7 @@ import { upload } from "@/app/lib/multer";
 
 export function postsRoutes(router: Router) {
     //* Routes Privates */
-    router.post("/user/:user_id/posts/create", upload.array('images', 10),
+    router.post("/account/:account_id/posts/create", upload.array('images', 10),
     authorizationMiddleware, createPostController);
   
     //* Routes Publics */

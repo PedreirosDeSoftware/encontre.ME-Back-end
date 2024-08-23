@@ -9,23 +9,23 @@ export class InMemoryActivationAccount implements ActivationAccountRepository {
         const account = {
             id: randomUUID(),
             activation: data.activation ? new Date( data.activation ) : null,
-            user_id: data.user_id
+            account_id: data.account_id
         }
 
         this.accounts.push(account);
         return account
     }
 
-    async findByUserId(userId: string) {
-        const account = this.accounts.find(item => item.user_id === userId);
+    async findByAccountId(accountId: string) {
+        const account = this.accounts.find(item => item.account_id === accountId);
         if (!account) return null;
 
         return account;
     }
 
-   async accountActivation(userId: string) {
+   async accountActivation(accountId: string) {
 
-        const accountIndex = this.accounts.findIndex(item => item.user_id === userId);
+        const accountIndex = this.accounts.findIndex(item => item.account_id === accountId);
         if (accountIndex === -1) return null;       
 
         const activationAccount = this.accounts[accountIndex];

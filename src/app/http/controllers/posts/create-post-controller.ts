@@ -7,7 +7,7 @@ import { InvalidRequestError } from "@/app/exceptions/invalid-request-images-err
 
 export const createPostController: RequestHandler = async (req, res) => {
     const createPostParamsSchema = z.object({
-        user_id: z.string().uuid(),
+        account_id: z.string().uuid(),
     });
 
     const createPostBodySchema = z.object({
@@ -16,7 +16,7 @@ export const createPostController: RequestHandler = async (req, res) => {
         contact: z.string(),
     })
 
-    const {  user_id } = createPostParamsSchema.parse(req.params);
+    const {  account_id } = createPostParamsSchema.parse(req.params);
     const { fullName, description, contact } = createPostBodySchema.parse(req.body);
 
     const images: FilePath[] = req.files
@@ -28,7 +28,7 @@ export const createPostController: RequestHandler = async (req, res) => {
         const createPostUseCase = makeCreatePostUseCase()
         await createPostUseCase.execute({
             fullName, description, contact, images, 
-            user_id,  
+            account_id,  
         });
 
         return res.status(201).json();

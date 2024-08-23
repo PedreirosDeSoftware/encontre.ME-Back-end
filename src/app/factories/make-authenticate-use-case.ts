@@ -1,10 +1,10 @@
 import { PrismaActivationAccount } from "../repositories/prisma/prisma-activation-account";
-import { PrismaUserRepository } from "../repositories/prisma/prisma-user-repository";
+import { PrismaAccountRepository } from "../repositories/prisma/prisma-account-repository";
 import { AuthenticateUseCase } from "../use-cases/authenticate";
 
 export function makeAuthenticateUseCase() {
-    const userRepository = new PrismaUserRepository();
+    const accountRepository = new PrismaAccountRepository();
     const activationAccount = new PrismaActivationAccount();
-    const useCase = new AuthenticateUseCase(userRepository, activationAccount);
+    const useCase = new AuthenticateUseCase(accountRepository, activationAccount);
     return useCase;
 }

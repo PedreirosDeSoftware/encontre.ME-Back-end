@@ -1,12 +1,12 @@
 import { beforeEach, describe, expect, it } from "vitest";
 import { app } from "@/app";
 import request from "supertest";
-import { createAndAuthenticateUser } from "@/app/utils/create-and-authenticate-user";
+import { createAndAuthenticateAccount } from "@/app/utils/create-and-authenticate-account";
 import { prisma } from "@/app/lib/prisma";
 
 describe('Fetch Posts e2e', async () => {
     
-    const { id, token } = await createAndAuthenticateUser();
+    const { id, token } = await createAndAuthenticateAccount();
   
     it('should be able to fetch posts', async () => {
 
@@ -27,7 +27,7 @@ describe('Fetch Posts e2e', async () => {
                 fullName: 'lucas',
                 description: "desaparecido a dias", 
 	            contact: "55 61 9999-9999",
-                user_id: id,
+                account_id: id,
                 event_id: event.id,
             }
         })
@@ -37,7 +37,7 @@ describe('Fetch Posts e2e', async () => {
                 fullName: 'joao',
                 description: "desaparecido a dias", 
 	            contact: "55 61 9999-9999",
-                user_id: id
+                account_id: id
             }
         })
            

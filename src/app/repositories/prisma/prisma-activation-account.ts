@@ -1,6 +1,6 @@
 import { ActivationAccountRepository } from "@/app/interfaces/activation-account-interfaces";
 import { prisma } from "@/app/lib/prisma";
-import { Prisma, ActivationAccount } from "@prisma/client";
+import { Prisma } from "@prisma/client";
 
 export class PrismaActivationAccount implements ActivationAccountRepository {
     async create(data: Prisma.ActivationAccountUncheckedCreateInput) {
@@ -11,18 +11,18 @@ export class PrismaActivationAccount implements ActivationAccountRepository {
         return account;
     }
 
-    async findByUserId(userId: string) {
+    async findByAccountId(accountId: string) {
         const account = await prisma.activationAccount.findUnique({
-            where: { user_id: userId }
+            where: { account_id: accountId }
         })
 
         return account;
     }
 
-    async accountActivation(userId: string) {
+    async accountActivation(accountId: string) {
         const account = await prisma.activationAccount.update({
             where: { 
-                user_id: userId, 
+                account_id: accountId, 
             },
             data: {
                 activation: new Date()
