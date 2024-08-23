@@ -1,12 +1,14 @@
 import { Application } from "express";
 import express from "express";
 import cors from "cors";
+import { accountsRoutes } from "./app/http/controllers/accounts/routes";
 import { postsRoutes } from "./app/http/controllers/posts/routes";
 import morgan from "morgan";
 import swaggerUi from "swagger-ui-express";
 import swaggerDocs from "./swagger.json";
 import { erroHandler } from "./error-handler";
-import { accountsRoutes } from "./app/http/controllers/accounts/routes";
+
+import path from "node:path";
 
 export const app: Application = express();
 
