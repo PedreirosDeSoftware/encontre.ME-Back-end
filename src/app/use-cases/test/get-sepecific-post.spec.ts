@@ -22,7 +22,7 @@ describe('Get Specific Post Use Case', () => {
                 fullName: `desaparecido 1`,
                 description: 'é uma pessoa desaparecida',
                 contact: '55 61 9999-9999',
-                user_id: 'user-1',
+                account_id: 'account-1',
             });
             
         const { post } = await sut.execute({
@@ -38,7 +38,7 @@ describe('Get Specific Post Use Case', () => {
                 fullName: `desaparecido ${i}`,
                 description: 'é uma pessoa desaparecida',
                 contact: '55 61 9999-9999',
-                user_id: 'user-1',
+                account_id: 'account-1',
             });
         }
                 

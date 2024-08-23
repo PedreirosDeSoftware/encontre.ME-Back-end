@@ -16,7 +16,7 @@
         "/api/register": {
             "post": {
                 "summary": "Cadastrado de uma instituição ou usuário",
-                "tags": ["Users"],
+                "tags": ["Accounts"],
                 "requestBody": {
                     "description": "Dados para cadastra uma instituição ou usuário(pessoa física)",
                     "content": {
@@ -61,7 +61,7 @@
         "/api/login": {
             "post": { 
                 "summary": "Login de usuário",
-                "tags": ["Users"],
+                "tags": ["Accounts"],
                 "requestBody": {
                     "description": "Dados para login de usuário",
                     "content": {
@@ -103,10 +103,10 @@
             }
         },
 
-        "/api/user/{id}":{
+        "/api/account/{id}":{
             "get": {
                 "summary": "Busca por uma conta",
-                "tags": ["Users"],
+                "tags": ["Accounts"],
                 "parameters": [
                     {   
                         "name": "id",
@@ -122,7 +122,7 @@
                         "content": {
                             "application/json": {
                                 "schema": {
-                                    "$ref": "#components/schemas/responseUser"
+                                    "$ref": "#components/schemas/responseAccount"
                                 }
                             }
                         }
@@ -186,7 +186,7 @@
             "responseRegister": {
                 "type": "object",
                 "properties": {
-                    "user": {
+                    "account": {
                         "type": "string",
                         "format": "uuid"
                     }
@@ -217,7 +217,7 @@
                 }
             },
 
-            "responseUser": {
+            "responseAccount": {
                 "type": "object",
                 "properties": {
 

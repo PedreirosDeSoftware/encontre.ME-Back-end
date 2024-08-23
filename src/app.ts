@@ -1,14 +1,12 @@
 import { Application } from "express";
 import express from "express";
 import cors from "cors";
-const path = require('path');
-const fs = require('fs');
-import { usersRoutes } from "./app/http/controllers/users/routes";
 import { postsRoutes } from "./app/http/controllers/posts/routes";
 import morgan from "morgan";
 import swaggerUi from "swagger-ui-express";
 import swaggerDocs from "./swagger.json";
 import { erroHandler } from "./error-handler";
+import { accountsRoutes } from "./app/http/controllers/accounts/routes";
 
 export const app: Application = express();
 
@@ -30,6 +28,6 @@ app.use('/api', router);
 
 
 postsRoutes(router);
-usersRoutes(router);
+accountsRoutes(router);
 
 app.use(erroHandler);

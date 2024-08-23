@@ -7,7 +7,7 @@ export class CreatePostUseCase {
     constructor(private postRepository: PostRepository,
                 private imageRepository: ImageRepository) {}
 
-    async execute({ fullName, description, images, contact, user_id }: CreatePostUseCaseRequest): Promise<CreatePostUseCaseResponse> {
+    async execute({ fullName, description, images, contact, account_id }: CreatePostUseCaseRequest): Promise<CreatePostUseCaseResponse> {
         const postName = await this.postRepository.findByName(fullName);
         if (postName) throw new PostAlreadyExistsError();
 
@@ -17,7 +17,7 @@ export class CreatePostUseCase {
         const postPhoto = images.length > 0 ? images[0].url : null;
         
         const post = await this.postRepository.create({
-            fullName, description, photo: postPhoto, contact, user_id
+            fullName, description, photo: postPhoto, contact, account_id
         });
 
         for(const image of images) {

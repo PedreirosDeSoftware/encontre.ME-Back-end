@@ -1,2 +1,2 @@
 -- AlterTable
-ALTER TABLE "images" ALTER COLUMN "user_id" DROP NOT NULL;
+ALTER TABLE "images" ALTER COLUMN "account_id" DROP NOT NULL;

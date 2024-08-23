@@ -1,9 +1,8 @@
 import { makeRegisterUseCase } from "@/app/factories/make-register-use-case";
 import { EmailAlreadyExistsError } from "@/app/exceptions/email-already-exists-error";
 import { RequestHandler } from "express";
-import { z }from "zod";
-import { sendMailClient } from "@/app/lib/mail";
-import nodemailer from "nodemailer";
+import { z } from "zod";
+import { EmailSendingFailureError } from "@/app/exceptions/email-sending-failure-error";
 
 export const registerController: RequestHandler = async (req, res) => {
     const registerBodySchema = z.object({
@@ -20,22 +19,24 @@ export const registerController: RequestHandler = async (req, res) => {
     });
     
     const { name, authorName = null , email, password, cnpj_cpf, phone, state, city, cep, address } = registerBodySchema.parse(req.body);
-
     const avatarImage = req.file?.path ?? null;
-    
+
     try {
         const registerUseCase = makeRegisterUseCase()
-        const { user } = await registerUseCase.execute({
+        const { account } = await registerUseCase.execute({
             name, email, password, cnpj_cpf, phone, state, city, cep, address, authorName, avatarImage
-        });
+        });        
 
-        await sendMailClient(user);
-        return res.status(201).json({ user: user.id });
+        return res.status(201).json({ account: account.id });      
 
     } catch (error) {
         if (error instanceof EmailAlreadyExistsError) {
             return res.status(409).json({ message: error.message });
         }
+        if (error instanceof EmailSendingFailureError) {
+            return res.status(400).json({ message: error.message });
+        }
+
         throw error
     }
 }

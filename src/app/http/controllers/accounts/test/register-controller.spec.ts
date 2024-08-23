@@ -21,6 +21,6 @@ describe('Register e2e', () => {
             });
 
         expect(response.statusCode).toEqual(201);
-        expect(response.body.user).toEqual(expect.any(String));
+        expect(response.body.account).toEqual(expect.any(String));
     });     
 });

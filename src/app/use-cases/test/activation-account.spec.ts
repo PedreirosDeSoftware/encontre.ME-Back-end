@@ -14,9 +14,9 @@ describe('Activation Account Use Case', () => {
 
     it('should be able to activation account', async () => { 
         await activationAccount.create({
-            user_id: 'user-1',
+            account_id: 'account-1',
        });
-        const account = await sut.execute('user-1');
+        const account = await sut.execute('account-1');
         
         expect(account?.activation).toEqual(expect.any(Date));
     });

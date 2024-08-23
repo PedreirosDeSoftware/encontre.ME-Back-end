@@ -39,7 +39,7 @@ describe('Create Post Use Case', () => {
             description: 'é uma pessoa desaparecida',
             contact: '55 61 9999-9999',
             images,
-            user_id: 'user-1',
+            account_id: 'account-1',
         });
         
         expect(post.id).toEqual(expect.any(String));
@@ -63,7 +63,7 @@ describe('Create Post Use Case', () => {
             description: 'é uma pessoa desaparecida',
             contact: '55 61 9999-9999',
             images,
-            user_id: 'user-1',
+            account_id: 'account-1',
         });
         
         await expect(() => 
@@ -72,7 +72,7 @@ describe('Create Post Use Case', () => {
                 description: 'é uma pessoa desaparecida',
                 contact: '55 61 9999-9999',
                 images,
-                user_id: 'user-1',
+                account_id: 'account-1',
             })
         ).rejects.toBeInstanceOf(PostAlreadyExistsError);
     });
@@ -94,7 +94,7 @@ describe('Create Post Use Case', () => {
             description: 'é uma pessoa desaparecida',
             contact: '55 61 9999-9999',
             images,
-            user_id: 'user-1',
+            account_id: 'account-1',
         });
         
         await expect(() => 
@@ -103,7 +103,7 @@ describe('Create Post Use Case', () => {
                 description: 'é uma pessoa desaparecida',
                 contact: '55 61 9999-9999',
                 images: [],
-                user_id: 'user-1',
+                account_id: 'account-1',
             })
         ).rejects.toBeInstanceOf(InvalidRequestError);
     });

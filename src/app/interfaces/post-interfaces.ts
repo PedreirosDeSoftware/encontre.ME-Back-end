@@ -21,7 +21,7 @@ export interface CreatePostUseCaseRequest {
     description: string,
     contact: string,
     images: FilePath[]
-    user_id: string,
+    account_id: string,
 }
 
 export interface CreatePostUseCaseResponse {

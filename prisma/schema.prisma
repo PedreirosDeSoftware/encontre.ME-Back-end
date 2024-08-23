@@ -13,7 +13,7 @@ datasource db {
     url      = env("DATABASE_URL")
 }
 
-model User {
+model Account {
     id                 String              @id @default(uuid())
     name               String
     authorName         String?             @map("author_name")
@@ -27,10 +27,10 @@ model User {
     address            String
     avatarImage        String?             @map("avatar_image")
     createdAt          DateTime            @default(now()) @map("created_at")
-    posts              Post[]
     activationAccounts ActivationAccount[]
+    posts              Post[]
 
-    @@map("users")
+    @@map("accounts")
 }
 
 model Post {
@@ -41,8 +41,8 @@ model Post {
     photo       String?
     createdAt   DateTime @default(now()) @map("created_at")
 
-    user_id String
-    user    User   @relation(fields: [user_id], references: [id], onDelete: Cascade)
+    account_id String
+    account    Account @relation(fields: [account_id], references: [id], onDelete: Cascade)
 
     images Image[]
 
@@ -76,8 +76,8 @@ model Event {
 model ActivationAccount {
     id         String    @id @default(uuid())
     activation DateTime?
-    user_id    String    @unique
-    user       User      @relation(fields: [user_id], references: [id], onDelete: Cascade)
+    account_id String    @unique
+    account    Account   @relation(fields: [account_id], references: [id], onDelete: Cascade)
 
     @@map("acitivation_account")
 }

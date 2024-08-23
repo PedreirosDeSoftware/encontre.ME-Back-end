@@ -3,8 +3,8 @@ import request from "supertest";
 import { app } from "@/app";
 import { hash } from "bcryptjs";
 
-export async function createAndAuthenticateUser() {
-    const user = await prisma.user.create({
+export async function createAndAuthenticateAccount() {
+    const account = await prisma.account.create({
         data: {
             name: 'John Doe',
             authorName: "responsável",
@@ -22,7 +22,7 @@ export async function createAndAuthenticateUser() {
     await prisma.activationAccount.create({
         data: { 
             activation: new Date(),
-            user_id: user.id,
+            account_id: account.id,
         }
     });
 
@@ -33,7 +33,7 @@ export async function createAndAuthenticateUser() {
             password: "12345678"
         });
 
-    const { id } = user;
+    const { id } = account;
     const { token } = response.body;
     return { id, token }
 }

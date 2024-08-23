@@ -1,15 +1,15 @@
 import { describe, expect, it } from "vitest";
 import { app } from "@/app";
 import request from "supertest";
-import { createAndAuthenticateUser } from "@/app/utils/create-and-authenticate-user";
+import { createAndAuthenticateAccount } from "@/app/utils/create-and-authenticate-account";
 
 describe('Create Post e2e', () => {
 
     it.skip('should not be able to create post without images',async () => {
-        const { id, token } = await createAndAuthenticateUser();        
+        const { id, token } = await createAndAuthenticateAccount();        
 
         const response = await request(app)
-            .post(`/api/user/${id}/posts/create`)
+            .post(`/api/account/${id}/posts/create`)
             .set("Authorization", `Bearer ${token}`)
             .send({
                 fullName: "joao teste", 
@@ -21,10 +21,10 @@ describe('Create Post e2e', () => {
     });
 
     it('should not be able to create post without images',async () => {
-        const { id, token } = await createAndAuthenticateUser();        
+        const { id, token } = await createAndAuthenticateAccount();        
 
         const response = await request(app)
-            .post(`/api/user/${id}/posts/create`)
+            .post(`/api/account/${id}/posts/create`)
             .set("Authorization", `Bearer ${token}`)
             .send({
                 fullName: "joao teste", 
