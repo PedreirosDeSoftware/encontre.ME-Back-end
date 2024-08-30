@@ -4,7 +4,7 @@ import { authorizationMiddleware } from "../../middlewares/authorization";
 import { fetchPostsController } from "./fetch-posts-controller";
 import { getSpecificPostController } from "./get-specific-post-controller";
 import { upload } from "@/app/lib/multer";
-import { updateFoundPostController } from "./found-post-controller";
+import { updateFoundPostController } from "./update-found-post-controller";
 
 export function postsRoutes(router: Router) {
     //* Routes Privates */
