@@ -6,12 +6,11 @@ import { postsRoutes } from "./app/http/controllers/posts/routes";
 import morgan from "morgan";
 import swaggerUi from "swagger-ui-express";
 import swaggerDocs from "./swagger.json";
-import { erroHandler } from "./error-handler";
 import path from "node:path";
 
 export const app: Application = express();
 
-app.use(cors({ origin: "*" }));
+app.use(cors({ origin: '*' }));
 
 app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
@@ -27,8 +26,6 @@ const router = express.Router();
 
 app.use('/api', router);
 
-
 postsRoutes(router);
 accountsRoutes(router);
 
-app.use(erroHandler);

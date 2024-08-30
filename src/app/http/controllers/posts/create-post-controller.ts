@@ -1,7 +1,7 @@
 import { makeCreatePostUseCase } from "@/app/factories/make-create-post-use-case";
 import { PostAlreadyExistsError } from "@/app/exceptions/post-already-exist-error";
 import { RequestHandler } from "express";
-import { z } from "zod";
+import { z, ZodError } from "zod";
 import { FilePath } from "@/app/interfaces/post-interfaces";
 import { InvalidRequestError } from "@/app/exceptions/invalid-request-images-error";
 
@@ -34,6 +34,13 @@ export const createPostController: RequestHandler = async (req, res) => {
         return res.status(201).json();
 
     } catch (error) {
+        if (error instanceof ZodError)   {
+            return res.status(400).json({ 
+                message: "Invalid Request",
+                error: error.flatten().fieldErrors 
+            });
+        } 
+        
         if (error instanceof PostAlreadyExistsError) {
             return res.status(400).json({ message: error.message });
         }

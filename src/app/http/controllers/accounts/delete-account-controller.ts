@@ -1,5 +1,5 @@
 import { RequestHandler } from "express";
-import { z } from "zod";
+import { z, ZodError } from "zod";
 import { makeDeleteAccountUseCase } from "@/app/factories/make-delete-account-use-case";
 
 export const deleteAccountController: RequestHandler = async (req, res) => {
@@ -16,6 +16,13 @@ export const deleteAccountController: RequestHandler = async (req, res) => {
         return res.status(204).json()
 
     } catch (error) {
+        if (error instanceof ZodError)   {
+            return res.status(400).json({ 
+                message: "Invalid Request",
+                error: error.flatten().fieldErrors 
+            });
+        } 
+        
         if (error) {
             return res.status(400).json({ message: 'Account Not Found.' });
         }

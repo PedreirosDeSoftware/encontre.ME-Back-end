@@ -1,7 +1,7 @@
 import { ResourceNotFound } from "@/app/exceptions/resource-not-found";
 import { makeActivationAccountUseCase } from "@/app/factories/make-activation-account-use-case";
 import { RequestHandler } from "express";
-import z from "zod";
+import z, { ZodError } from "zod";
 
 export const activationAccountController: RequestHandler = async (req, res) => {
     const activationAccountParamsSchema = z.object({
@@ -17,6 +17,13 @@ export const activationAccountController: RequestHandler = async (req, res) => {
         if (account) return res.status(301).redirect('http://localhost:5173/login')  
 
     } catch (error) {
+        if (error instanceof ZodError)   {
+            return res.status(400).json({ 
+                message: "Invalid Request",
+                error: error.flatten().fieldErrors 
+            });
+        } 
+        
         if (error instanceof ResourceNotFound) {
             return res.status(400).json({ message: error.message });
         }

@@ -1,5 +1,5 @@
 import { FilterPosts, PostRepository } from "@/app/interfaces/post-interfaces";
-import { Prisma } from "@prisma/client";
+import { Post, Prisma } from "@prisma/client";
 import { prisma } from "@/app/lib/prisma";
 
 export class PrismaPostRepository implements PostRepository {
@@ -31,6 +31,7 @@ export class PrismaPostRepository implements PostRepository {
                     contains: query.fullName,
                     mode: 'insensitive'
                 },
+                
                 Event: {
                     status: query.event
                 }
@@ -44,6 +45,19 @@ export class PrismaPostRepository implements PostRepository {
         const post = await prisma.post.findUnique({
             where: { id }
         });
+        if (!post) return null;
+
+        return post;
+    }
+
+    async updateFoundPost(id: string) {
+        const post = await prisma.post.update({
+            where: { id },
+            data: {
+                found: new Date()
+            }
+        });
+        
         if (!post) return null;
 
         return post;

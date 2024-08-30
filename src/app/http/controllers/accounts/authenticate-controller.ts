@@ -1,7 +1,7 @@
 
 import { InvalidCredentialsError } from "@/app/exceptions/invalid-credentials-error";
 import { RequestHandler } from "express";
-import { z } from "zod";
+import { z, ZodError } from "zod";
 import jwt from "jsonwebtoken";
 import { env } from "@/env/schema";
 import { ActivationAccountError } from "@/app/exceptions/activation-account-error";
@@ -37,6 +37,13 @@ export const authenticateController: RequestHandler = async (req, res) => {
             .status(200).json({ token });
 
     } catch (error) {
+        if (error instanceof ZodError)   {
+            return res.status(400).json({ 
+                message: "Invalid Request",
+                error: error.flatten().fieldErrors 
+            });
+        } 
+        
         if (error instanceof InvalidCredentialsError) {
             return res.status(400).json({ message: error.message });
         }

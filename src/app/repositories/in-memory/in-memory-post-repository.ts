@@ -15,6 +15,7 @@ export class InMemoryPostRepository implements PostRepository {
             description: data.description,
             contact: data.contact,
             photo: data.photo ?? null,
+            found: data.found ? new Date( data.found ) : null,
             account_id: data.account_id,
             event_id: data.event_id ?? null,
             createdAt: new Date()
@@ -41,13 +42,13 @@ export class InMemoryPostRepository implements PostRepository {
             const postsWithEvent = this.posts
                 .filter((item) => event.some((e) => e.id === item.event_id))
                 .filter((item) => query.fullName ? item.fullName.toLowerCase() === query.fullName.toLowerCase() : true)
-                
+                    
             return postsWithEvent
         }
 
         const posts = this.posts
             .filter((item) => query.fullName ? item.fullName.toLowerCase() === query.fullName.toLowerCase() : true)
-                     
+   
         return posts
 
     }
@@ -55,6 +56,15 @@ export class InMemoryPostRepository implements PostRepository {
     async findById(id: string) {
         const post = this.posts.find(item => item.id === id);
         if (!post) return null;
+
+        return post;
+    }
+
+    async updateFoundPost(id: string){
+        const post = this.posts.find(item => item.id === id);
+        if (!post) return null;
+
+        post.found = new Date();
 
         return post;
     }

@@ -1,5 +1,5 @@
 import { RequestHandler } from "express";
-import { z } from "zod";
+import { z, ZodError } from "zod";
 import { ResourceNotFound } from "@/app/exceptions/resource-not-found";
 import { makeGetAccountUseCase } from "@/app/factories/make-get-account-use-case";
 
@@ -25,6 +25,13 @@ export const getAccountController: RequestHandler = async (req, res) => {
         });
 
     } catch (error) {
+        if (error instanceof ZodError)   {
+            return res.status(400).json({ 
+                message: "Invalid Request",
+                error: error.flatten().fieldErrors 
+            });
+        } 
+        
         if (error instanceof ResourceNotFound) {
             return res.status(400).json({ message: error.message });
         }

@@ -5,6 +5,7 @@ export interface PostRepository {
     findAll(query: FilterPosts): Promise<Post[]>;
     findByName(name: string): Promise<Post | null>
     findById(id: string): Promise<Post | null>;
+    updateFoundPost(id: string): Promise<Post | null>
 }
 
 export interface FilterPosts {
@@ -42,6 +43,14 @@ export interface GetSpecificPostUseCaseRequest {
 }
 
 export interface GetSpecificPostUseCaseResponse {
+    post: Post
+}
+
+export interface UpdateFoundPostUseCaseRequest {
+    id: string
+}
+
+export interface UpdateFoundPostUseCaseResponse {
     post: Post
 }
 
