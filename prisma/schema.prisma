@@ -34,12 +34,13 @@ model Account {
 }
 
 model Post {
-    id          String   @id @default(uuid())
-    fullName    String   @unique @map("full_name")
+    id          String    @id @default(uuid())
+    fullName    String    @unique @map("full_name")
     description String
     contact     String
     photo       String?
-    createdAt   DateTime @default(now()) @map("created_at")
+    found       DateTime?
+    createdAt   DateTime  @default(now()) @map("created_at")
 
     account_id String
     account    Account @relation(fields: [account_id], references: [id], onDelete: Cascade)
@@ -79,5 +80,5 @@ model ActivationAccount {
     account_id String    @unique
     account    Account   @relation(fields: [account_id], references: [id], onDelete: Cascade)
 
-    @@map("acitivation_account")
+    @@map("acitivation_accounts")
 }

@@ -9,7 +9,6 @@ import { activationAccountController } from "./activation-account-controller";
 import { deleteAccountController } from "./delete-account-controller";
 import { editAccountController } from "./edit-account-controller";
 
-
 export function accountsRoutes(route: Router) {
     //* Routes Publics */
     route.post("/register", registerController);

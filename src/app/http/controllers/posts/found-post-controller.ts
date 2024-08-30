@@ -1,9 +1,9 @@
-import { makeGetSpecificUseCase } from "@/app/factories/make-get-specific-post-use-case";
 import { ResourceNotFound } from "@/app/exceptions/resource-not-found";
 import { RequestHandler } from "express";
 import { z, ZodError } from "zod";
+import { makeUpdateFoundPostUseCase } from "@/app/factories/make-update-found-post-use-case";
 
-export const getSpecificPostController: RequestHandler = async (req, res) => {
+export const updateFoundPostController: RequestHandler = async (req, res) => {
     const getSpecificParamsSchema = z.object({
         id: z.string().uuid()
     });  
@@ -11,10 +11,15 @@ export const getSpecificPostController: RequestHandler = async (req, res) => {
     const { id } = getSpecificParamsSchema.parse(req.params)
 
     try {
-        const getSpecificPostUseCase = makeGetSpecificUseCase()
-        const post = await getSpecificPostUseCase.execute({ id });
+        const foundPostUseCase = makeUpdateFoundPostUseCase()
+        const { post }= await foundPostUseCase.execute({ id });
 
-        return res.status(200).json(post);
+        return res.status(200).json({
+            post: {
+                id: post.id,
+                found: post.found
+            }
+        });
 
     } catch (error) {
         if (error instanceof ZodError)   {

@@ -5,7 +5,6 @@ import { RegisterUseCaseRequest, RegisterUseCaseResponse, AccountRepository } fr
 import { hash } from "bcryptjs";
 import { sendMailClient } from "../lib/mail";
 import { EmailSendingFailureError } from "../exceptions/email-sending-failure-error";
-
 export class RegisterUseCase {
     constructor(private accountRepository: AccountRepository,
                 private activationAccount: ActivationAccountRepository) {}
@@ -29,7 +28,7 @@ export class RegisterUseCase {
             throw new ActivationAccountCreateError();
         }
 
-        const message = await sendMailClient(account);
+        const message = await sendMailClient(account);        
                
         if (!message) {
             await sendMailClient(account)

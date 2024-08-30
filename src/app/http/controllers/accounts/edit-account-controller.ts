@@ -1,7 +1,8 @@
 import { RequestHandler } from "express";
-import { z } from "zod";
+import { z, ZodError } from "zod";
 import { makeEditAccountUseCase } from "@/app/factories/make-edit-account-use-case";
 import { dataUpdate } from "@/app/interfaces/account-interfaces";
+import { MulterError } from "multer";
 
 export const editAccountController: RequestHandler = async (req, res) => {
     const editAccountParamsSchema = z.object({
@@ -34,6 +35,20 @@ export const editAccountController: RequestHandler = async (req, res) => {
         return res.status(204).json()
 
     } catch (error) {
+        if (error instanceof ZodError)   {
+            return res.status(400).json({ 
+                message: "Invalid Request",
+                error: error.flatten().fieldErrors 
+            });
+        } 
+
+        if (error instanceof MulterError) {
+            return res.status(400).json({
+                message: "Error uploading file",
+                error: error.message
+            });
+        }
+        
         if (error) {
             return res.status(400).json({ message: 'Account Not Found.' });
         }
