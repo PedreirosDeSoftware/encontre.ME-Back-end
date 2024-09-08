@@ -1,5 +1,4 @@
 import { AccountRepository } from "../interfaces/account-interfaces";
-
 export class DeleteAccountUseCase{
     constructor(private accountRepository: AccountRepository) {}
 

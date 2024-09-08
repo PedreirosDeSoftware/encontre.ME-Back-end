@@ -69,4 +69,11 @@ export class InMemoryPostRepository implements PostRepository {
         return post;
     }
 
+    async delete(id: string) {
+        const postIndex = this.posts.findIndex(item => item.id === id);
+        if (postIndex > -1) {
+            this.posts.splice(postIndex, 1);
+        };
+    }
+
 }
