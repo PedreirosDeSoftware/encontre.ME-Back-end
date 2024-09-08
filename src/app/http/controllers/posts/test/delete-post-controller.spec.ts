@@ -1,12 +1,12 @@
+import { createAndAuthenticateAccount } from "@/app/utils/create-and-authenticate-account";
 import { describe, expect, it } from "vitest";
 import { app } from "@/app";
 import request from "supertest";
-import { createAndAuthenticateAccount } from "@/app/utils/create-and-authenticate-account";
 import { prisma } from "@/app/lib/prisma";
 
-describe('Get Specific Post e2e', () => {
-    it('should be able to get specific post',async () => {
-        const { id, token } = await createAndAuthenticateAccount();        
+describe('Delete Post e2e', () => {
+    it('should be able to delete a post', async () => {
+        const { id, token } = await createAndAuthenticateAccount();
 
         const post = await prisma.post.create({
             data: {
@@ -18,11 +18,10 @@ describe('Get Specific Post e2e', () => {
         });
 
         const response = await request(app)
-            .get(`/api/posts/${post.id}`)
+            .delete(`/api/posts/${post.id}/delete`)
             .set("Authorization", `Bearer ${token}`)
-            .send();        
-
-        expect(response.statusCode).toEqual(200);
-        expect(response.body.post).toEqual(expect.objectContaining({ fullName: 'teste' }));
-    })
-});
+            .send();
+        
+        expect(response.statusCode).toEqual(204);
+    });
+})

@@ -6,6 +6,7 @@ export interface PostRepository {
     findByName(name: string): Promise<Post | null>
     findById(id: string): Promise<Post | null>;
     updateFoundPost(id: string): Promise<Post | null>
+    delete(id: string): Promise<void>;
 }
 
 export interface FilterPosts {

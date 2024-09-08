@@ -1,9 +1,6 @@
 import { describe, it, expect, beforeEach } from "vitest";
-import { RegisterUseCase } from "../register";
 import { InMemoryAccountRepository } from "../../repositories/in-memory/in-memory-account-repository";
-import { compare, hash } from "bcryptjs";
-import { EmailAlreadyExistsError } from "../../exceptions/email-already-exists-error";
-import { InMemoryActivationAccount } from "@/app/repositories/in-memory/in-memory-activation-account-repository";
+import { hash } from "bcryptjs";
 import { DeleteAccountUseCase } from "../delete-account";
 
 let accountsRepository: InMemoryAccountRepository;

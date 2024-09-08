@@ -22,6 +22,7 @@ export const updateFoundPostController: RequestHandler = async (req, res) => {
         });
 
     } catch (error) {
+
         if (error instanceof ZodError)   {
             return res.status(400).json({ 
                 message: "Invalid Request",
@@ -32,6 +33,7 @@ export const updateFoundPostController: RequestHandler = async (req, res) => {
         if (error instanceof ResourceNotFound) {
             return res.status(400).json({ message: error.message });
         }
+        
         throw error
     }
 }
