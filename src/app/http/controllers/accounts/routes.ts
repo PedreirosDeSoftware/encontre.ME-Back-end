@@ -11,13 +11,26 @@ import { editAccountController } from "./edit-account-controller";
 
 export function accountsRoutes(route: Router) {
     //* Routes Publics */
-    route.post("/register", registerController);
+    route.post("/register", upload.single("avatar"), registerController);
     route.post("/login", authenticateController);
     route.get("/account/:id/activation", activationAccountController);
 
     //* Routes Privates */
-    route.get("/account/authorization", authorizationMiddleware, authTokenController);
+    route.get(
+        "/account/authorization",
+        authorizationMiddleware,
+        authTokenController
+    );
     route.get("/account/:id", authorizationMiddleware, getAccountController);
-    route.put("/account/:id/edit", authorizationMiddleware, upload.single('avatar'), editAccountController);
-    route.delete("/account/:id/delete", authorizationMiddleware, deleteAccountController);
+    route.put(
+        "/account/:id/edit",
+        authorizationMiddleware,
+        upload.single("avatar"),
+        editAccountController
+    );
+    route.delete(
+        "/account/:id/delete",
+        authorizationMiddleware,
+        deleteAccountController
+    );
 }
