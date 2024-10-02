@@ -27,6 +27,7 @@ export const registerController: RequestHandler = async (req, res, next) => {
         cep: z.string().max(10),
         address: z.string(),
     });
+
     initializeApp(firebaseConfig);
     const storage = getStorage();
 
